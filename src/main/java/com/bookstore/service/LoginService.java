@@ -228,6 +228,21 @@ public class LoginService extends JFrame {
         JLabel welcomeLabel = new JLabel("Welcome to the Dashboard!");
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dashboard.add(welcomeLabel);
+        
+//        JButton prodBtn, invenBtn, mypageBtn, logoutBtn, memBtn;
+        // 화면 하단에 여러 개의 버튼을 가진 패널을 추가해준다.
+        JPanel panSouth = new JPanel();
+        panSouth.setLayout(new FlowLayout());
+        
+        JButton mypageBtn = new JButton("마이페이지");
+        JButton logoutBtn = new JButton("로그아웃");
+        
+//        logoutBtn.setHorizontalAlignment(SwingConstants.SOUTH);
+        
+        panSouth.add(mypageBtn, BorderLayout.SOUTH);
+        panSouth.add(logoutBtn, BorderLayout.SOUTH);
+//        dashboard.add(logoutBtn);   
+        dashboard.getContentPane().add(panSouth, "South");
 
         dashboard.setVisible(true);
     }
