@@ -1,4 +1,4 @@
-package main.java.com.bookstore.util;
+package src.main.java.com.bookstore.util;
 /*
  * if(rs != null) try{rs.close();}catch(SQLException e){ e.printStackTrace(); }
  * if(stmt != null) try{stmt.close();}catch(SQLException e){ e.printStackTrace(); }

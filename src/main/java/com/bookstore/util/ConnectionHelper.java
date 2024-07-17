@@ -1,4 +1,4 @@
-package main.java.com.bookstore.util;
+package src.main.java.com.bookstore.util;
 
 // ("jdbc:oracle:thin:@DB이름_medium?TNS_ADMIN=지갑폴더경로",UserID,UserPW); 클라우드 DB 설정
 //, "ADMIN", "Madwolves9810!"

@@ -1,6 +1,6 @@
-package main.java.com.bookstore;
+package src.main.java.com.bookstore;
 
-import main.java.com.bookstore.service.LoginService;
+import src.main.java.com.bookstore.service.LoginService;
 
 public class Main {
 	public static void main(String[] args) {
