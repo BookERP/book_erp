@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IntelliJ IDEA
 .idea/
 *.iml
@@ -23,3 +24,6 @@ node_modules/
 /README.md
 /info/
 /src/
+=======
+/main/
+>>>>>>> 1dfa6bbc17224b955e85a46774d317d7b18704ab

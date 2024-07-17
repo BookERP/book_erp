@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package src.main.java.com.bookstore.util;
+=======
+package main.java.com.bookstore.util;
+>>>>>>> 1dfa6bbc17224b955e85a46774d317d7b18704ab
 /*
  * if(rs != null) try{rs.close();}catch(SQLException e){ e.printStackTrace(); }
  * if(stmt != null) try{stmt.close();}catch(SQLException e){ e.printStackTrace(); }
