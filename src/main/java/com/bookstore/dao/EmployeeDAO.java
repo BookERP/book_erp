@@ -14,16 +14,18 @@ import src.main.java.com.bookstore.util.ConnectionHelper;
 public class EmployeeDAO {
 	public List<Employee> getEmployee() {
 		List<Employee> employees = new ArrayList<>();
+		Employee employee = new Employee();
 		Connection conn = ConnectionHelper.getConnection("oracle");
 		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
 		try(PreparedStatement pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery()	) {
-			String ID = new Employee().getEMPLOYEEID();
+//			String ID = new Employee().getEMPLOYEEID();
+			String ID = employee.getEMPLOYEEID();
 			pstmt.setString(1,ID);
 			
 			
 			while(rs.next()) {
-				Employee employee = new Employee();
+//				Employee employee = new Employee();
 				employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
 				employee.setNAME(rs.getString("NAME"));
 				employee.setPosition(rs.getString("POSITION"));

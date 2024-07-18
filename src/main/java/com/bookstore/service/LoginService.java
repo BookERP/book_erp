@@ -173,7 +173,8 @@ public class LoginService extends JFrame {
     private void loginUser(String username, String password) {
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-            String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ? AND CUSTOMERCPW = ?";
+//            String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ? AND CUSTOMERCPW = ?";
+            String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
