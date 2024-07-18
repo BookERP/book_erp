@@ -12,12 +12,13 @@ public class SupplierDAO {
     public List<Supplier> getAllSuppliers() {
         List<Supplier> suppliers = new ArrayList<>();
         Connection conn = ConnectionHelper.getConnection("oracle");
-        String query = "SELECT SUPPLIERID FROM SUPPLIER";
+        String query = "SELECT SUPPLIERID, NAME FROM SUPPLIER";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Supplier supplier = new Supplier();
                 supplier.setSupplierId(rs.getString("SUPPLIERID"));
+                supplier.setName(rs.getString("NAME"));
                 suppliers.add(supplier);
             }
         } catch (SQLException e) {

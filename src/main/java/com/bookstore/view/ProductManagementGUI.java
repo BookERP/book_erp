@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ProductManagementGUI extends JFrame {
-    private JTextField txtProductId, txtName, txtAuthor, txtPublisher, txtPrice, txtStockQuantity, txtCategory;
+    private JTextField txtProductId, txtSearchProductId, txtName, txtAuthor, txtPublisher, txtPrice, txtStockQuantity, txtCategory;
     private JComboBox<String> comboSupplierId;
     private JTable productTable;
     private DefaultTableModel tableModel;
@@ -29,7 +29,7 @@ public class ProductManagementGUI extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JPanel inputPanel = new JPanel(new GridLayout(8, 2));
+        JPanel inputPanel = new JPanel(new GridLayout(9, 2));
         inputPanel.add(new JLabel("Product ID:"));
         txtProductId = new JTextField();
         inputPanel.add(txtProductId);
@@ -73,10 +73,12 @@ public class ProductManagementGUI extends JFrame {
         JButton btnAdd = new JButton("Add");
         JButton btnUpdate = new JButton("Update");
         JButton btnDelete = new JButton("Delete");
+        JButton btnSearch = new JButton("Search");
 
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnDelete);
+        buttonPanel.add(btnSearch);
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -101,6 +103,13 @@ public class ProductManagementGUI extends JFrame {
             }
         });
 
+        btnSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchProduct();
+            }
+        });
+
         loadProducts();
     }
 
@@ -117,12 +126,12 @@ public class ProductManagementGUI extends JFrame {
         for (Product product : products) {
             tableModel.addRow(new Object[]{
                 product.getProductId(),
-                product.getSupplierid(),
+                product.getSupplierId(),
                 product.getName(),
                 product.getAuthor(),
                 product.getPublisher(),
                 product.getPrice(),
-                product.getStuckQuantity(),
+                product.getStockQuantity(),
                 product.getCategory()
             });
         }
@@ -131,12 +140,12 @@ public class ProductManagementGUI extends JFrame {
     private void addProduct() {
         Product product = new Product();
         product.setProductId(txtProductId.getText());
-        product.setSupplierid((String) comboSupplierId.getSelectedItem());
+        product.setSupplierId((String) comboSupplierId.getSelectedItem());
         product.setName(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
         product.setPrice(Double.parseDouble(txtPrice.getText()));
-        product.setStuckQuantity(Integer.parseInt(txtStockQuantity.getText()));
+        product.setStockQuantity(Integer.parseInt(txtStockQuantity.getText()));
         product.setCategory(txtCategory.getText());
         productDAO.addProduct(product);
         loadProducts();
@@ -145,12 +154,12 @@ public class ProductManagementGUI extends JFrame {
     private void updateProduct() {
         Product product = new Product();
         product.setProductId(txtProductId.getText());
-        product.setSupplierid((String) comboSupplierId.getSelectedItem());
+        product.setSupplierId((String) comboSupplierId.getSelectedItem());
         product.setName(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
         product.setPrice(Double.parseDouble(txtPrice.getText()));
-        product.setStuckQuantity(Integer.parseInt(txtStockQuantity.getText()));
+        product.setStockQuantity(Integer.parseInt(txtStockQuantity.getText()));
         product.setCategory(txtCategory.getText());
         productDAO.updateProduct(product);
         loadProducts();
@@ -160,6 +169,26 @@ public class ProductManagementGUI extends JFrame {
         String productId = txtProductId.getText();
         productDAO.deleteProduct(productId);
         loadProducts();
+    }
+
+    private void searchProduct() {
+        String productId = txtProductId.getText();
+        Product product = productDAO.getProductById(productId);
+        if (product != null) {
+            tableModel.setRowCount(0); // Clear existing data
+            tableModel.addRow(new Object[]{
+                product.getProductId(),
+                product.getSupplierId(),
+                product.getName(),
+                product.getAuthor(),
+                product.getPublisher(),
+                product.getPrice(),
+                product.getStockQuantity(),
+                product.getCategory()
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "Product not found.");
+        }
     }
 
     public static void main(String[] args) {
