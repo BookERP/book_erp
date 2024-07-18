@@ -5,7 +5,7 @@ import main.java.com.bookstore.view.ProductManagementGUI;
 
 public class Main{
 	public static void main(String[] args) {
-//		LoginService ls = new LoginService();
-//		ls.main(args);
+		LoginService ls = new LoginService();
+		ls.main(args);
 	}
 }

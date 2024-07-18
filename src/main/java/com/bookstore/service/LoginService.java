@@ -1,6 +1,7 @@
 package main.java.com.bookstore.service;
 
 import javax.swing.*;
+import main.java.com.bookstore.view.ProductManagementGUI;
 import main.java.com.bookstore.util.ConnectionHelper;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,8 @@ public class LoginService extends JFrame {
     private JTextField txtId, txtName, txtPhone, txtEmail, txtAddress;
     private JPasswordField txtRegPassword;
 
+    ProductManagementGUI pm = new ProductManagementGUI();
+    
     public LoginService() {
         setTitle("User Management");
         setSize(400, 500);
@@ -51,7 +54,7 @@ public class LoginService extends JFrame {
     private JPanel createLoginPanel() {
         JPanel panel = new JPanel(null);
 
-        JLabel lblUsername = new JLabel("Username:");
+        JLabel lblUsername = new JLabel("아이디:");
         lblUsername.setBounds(20, 30, 80, 25);
         panel.add(lblUsername);
 
@@ -59,7 +62,7 @@ public class LoginService extends JFrame {
         txtUsername.setBounds(100, 30, 160, 25);
         panel.add(txtUsername);
 
-        JLabel lblPassword = new JLabel("Password:");
+        JLabel lblPassword = new JLabel("비밀번호:");
         lblPassword.setBounds(20, 70, 80, 25);
         panel.add(lblPassword);
 
@@ -67,7 +70,7 @@ public class LoginService extends JFrame {
         txtPassword.setBounds(100, 70, 160, 25);
         panel.add(txtPassword);
 
-        JButton btnLogin = new JButton("Login");
+        JButton btnLogin = new JButton("로그인");
         btnLogin.setBounds(100, 110, 100, 25);
         panel.add(btnLogin);
 
@@ -78,7 +81,7 @@ public class LoginService extends JFrame {
             }
         });
 
-        JButton btnGoToRegister = new JButton("Register");
+        JButton btnGoToRegister = new JButton("회원 가입");
         btnGoToRegister.setBounds(100, 150, 100, 25);
         panel.add(btnGoToRegister);
 
@@ -135,16 +138,16 @@ public class LoginService extends JFrame {
         txtEmail.setBounds(100, 190, 160, 25);
         panel.add(txtEmail);
 
-        JLabel lblAddress = new JLabel("주소:");
-        lblAddress.setBounds(20, 230, 80, 25);
-        panel.add(lblAddress);
+        JLabel lblPosition = new JLabel("직책:");
+        lblPosition.setBounds(20, 230, 80, 25);
+        panel.add(lblPosition);
 
         txtAddress = new JTextField();
         txtAddress.setBounds(100, 230, 160, 25);
         panel.add(txtAddress);
 
-        JButton btnRegister = new JButton("Register");
-        btnRegister.setBounds(100, 270, 100, 25);
+        JButton btnRegister = new JButton("회원가입");
+        btnRegister.setBounds(20, 270, 100, 25);
         panel.add(btnRegister);
 
         btnRegister.addActionListener(new ActionListener() {
@@ -154,8 +157,8 @@ public class LoginService extends JFrame {
             }
         });
 
-        JButton btnGoToLogin = new JButton("Back to Login");
-        btnGoToLogin.setBounds(100, 310, 150, 25);
+        JButton btnGoToLogin = new JButton("로그인 화면가기");
+        btnGoToLogin.setBounds(150, 270, 150, 25);
         panel.add(btnGoToLogin);
 
         btnGoToLogin.addActionListener(new ActionListener() {
@@ -171,17 +174,16 @@ public class LoginService extends JFrame {
     private void loginUser(String username, String password) {
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-            String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ? AND CUSTOMERCPW = ?";
+            String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
-
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Login successful!");
-                showDashboard();
+                JOptionPane.showMessageDialog(this, "로그인 성공!!");
+                pm.main(null);
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.");
+                JOptionPane.showMessageDialog(this, "아이디 혹은 비밀번호를 확인하세요.");
             }
             conn.close();
         } catch (Exception ex) {
@@ -191,11 +193,16 @@ public class LoginService extends JFrame {
     }
 
     private void registerUser(String username, String password, String name, String phone, String email, String address) {
-        Timestamp registrationDate = Timestamp.valueOf(LocalDateTime.now());
+        
+    	if (username.isEmpty() || password.isEmpty() || name.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "모든 정보를 입력하세요.");
+            return;
+        }
+    	Timestamp registrationDate = Timestamp.valueOf(LocalDateTime.now());
 
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-            String query = "INSERT INTO Customer (CUSTOMERID, CUSTOMERCPW, NAME, PHONE, EMAIL, ADDRESS, RDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO EMPLOYEE (EMPLOYEEID, EPW, NAME, PHONE, EMAIL,POSITION , HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
