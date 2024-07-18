@@ -20,6 +20,7 @@ public class MyPagePanel extends JFrame {
 	private EmployeeDAO employeeDAO;
 	
 	public MyPagePanel() {
+		employeeDAO = new EmployeeDAO();
 		setTitle("MyPage");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

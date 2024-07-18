@@ -15,11 +15,12 @@ public class EmployeeDAO {
 	public List<Employee> getEmployee() {
 		List<Employee> employees = new ArrayList<>();
 		Connection conn = ConnectionHelper.getConnection("oracle");
-		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID";
-		try(PreparedStatement pstmt = conn.prepareStatement(query)) {
+		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
+		try(PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery()	) {
 			String ID = new Employee().getEMPLOYEEID();
 			pstmt.setString(1,ID);
-			ResultSet rs = pstmt.executeQuery();
+			
 			
 			while(rs.next()) {
 				Employee employee = new Employee();
@@ -29,6 +30,7 @@ public class EmployeeDAO {
 				employee.setPhone(rs.getString("PHONE"));
 				employee.setEmail(rs.getString("EMAIL"));
 				employee.setHireDate(rs.getDate("HIREDATE"));
+				employees.add(employee);
 			}
 			
 		} catch(SQLException e) {
