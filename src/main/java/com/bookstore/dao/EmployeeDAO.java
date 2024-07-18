@@ -17,22 +17,20 @@ public class EmployeeDAO {
 		Employee employee = new Employee();
 		Connection conn = ConnectionHelper.getConnection("oracle");
 		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
-		try(PreparedStatement pstmt = conn.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery()	) {
-//			String ID = new Employee().getEMPLOYEEID();
+		try(PreparedStatement pstmt = conn.prepareStatement(query)) {
 			String ID = employee.getEMPLOYEEID();
-			pstmt.setString(1,ID);
-			
-			
-			while(rs.next()) {
-//				Employee employee = new Employee();
-				employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
-				employee.setNAME(rs.getString("NAME"));
-				employee.setPosition(rs.getString("POSITION"));
-				employee.setPhone(rs.getString("PHONE"));
-				employee.setEmail(rs.getString("EMAIL"));
-				employee.setHireDate(rs.getDate("HIREDATE"));
-				employees.add(employee);
+			pstmt.setString(1, ID);
+			try(ResultSet rs = pstmt.executeQuery();) {
+				while(rs.next()) {
+//					Employee employee = new Employee();
+					employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
+					employee.setNAME(rs.getString("NAME"));
+					employee.setPosition(rs.getString("POSITION"));
+					employee.setPhone(rs.getString("PHONE"));
+					employee.setEmail(rs.getString("EMAIL"));
+					employee.setHireDate(rs.getDate("HIREDATE"));
+					employees.add(employee);
+				}
 			}
 			
 		} catch(SQLException e) {

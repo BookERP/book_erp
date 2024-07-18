@@ -198,7 +198,8 @@ public class LoginService extends JFrame {
 
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-            String query = "INSERT INTO Customer (CUSTOMERID, CUSTOMERCPW, NAME, PHONE, EMAIL, ADDRESS, RDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//            String query = "INSERT INTO Customer (CUSTOMERID, CUSTOMERCPW, NAME, PHONE, EMAIL, ADDRESS, RDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Employee (EMPLOYEEID, EPW, NAME, PHONE, EMAIL, POSITION, HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
@@ -207,6 +208,7 @@ public class LoginService extends JFrame {
             pst.setString(5, email);
             pst.setString(6, address);
             pst.setTimestamp(7, registrationDate);
+            
 
             int result = pst.executeUpdate();
             if (result > 0) {

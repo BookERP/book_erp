@@ -5,10 +5,18 @@ import java.util.Date;
 public class Employee {
 	private String EMPLOYEEID;
 	private String NAME;
+	private String password;
 	private String Position;
 	private String Phone;
 	private String Email;
 	private Date HireDate;
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getEMPLOYEEID() {
 		return EMPLOYEEID;
 	}
@@ -47,7 +55,8 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "Employee [EMPLOYEEID=" + EMPLOYEEID + ", NAME=" + NAME + ", Position=" + Position + ", Phone=" + Phone
-				+ ", Email=" + Email + ", HireDate=" + HireDate + "]";
+		return "Employee [EMPLOYEEID=" + EMPLOYEEID + ", NAME=" + NAME + ", password=" + password + ", Position="
+				+ Position + ", Phone=" + Phone + ", Email=" + Email + ", HireDate=" + HireDate + "]";
 	}
+	
 }
