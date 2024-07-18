@@ -17,7 +17,12 @@ public class ConnectionHelper {
 				else if(dsn.equalsIgnoreCase("oracle")) {
 				
 				Class.forName("oracle.jdbc.OracleDriver");
-				conn = DriverManager.getConnection("jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/cloud/Wallet_BookERPMSA", "ADMIN", "Madwolves9810!");
+
+				conn = DriverManager.getConnection("jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/Project/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA", "ADMIN", "Madwolves9810!");
+
+
+
+				conn = DriverManager.getConnection("jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA", "ADMIN", "Madwolves9810!");
 				System.out.println("connection sucess!!");
 			}
 		}catch(Exception e){
