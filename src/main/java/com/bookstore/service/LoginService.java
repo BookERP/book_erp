@@ -173,7 +173,6 @@ public class LoginService extends JFrame {
     private void loginUser(String username, String password) {
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-//            String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ? AND CUSTOMERCPW = ?";
             String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
@@ -199,7 +198,7 @@ public class LoginService extends JFrame {
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
 //            String query = "INSERT INTO Customer (CUSTOMERID, CUSTOMERCPW, NAME, PHONE, EMAIL, ADDRESS, RDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            String query = "INSERT INTO Employee (EMPLOYEEID, EPW, NAME, PHONE, EMAIL, POSITION, HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO EMPLOYEE (EMPLOYEEID, EPW, NAME, PHONE, EMAIL, POSITION, HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
