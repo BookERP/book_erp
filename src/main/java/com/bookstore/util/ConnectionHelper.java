@@ -1,7 +1,6 @@
 package main.java.com.bookstore.util;
 
-// ("jdbc:oracle:thin:@DB이름_medium?TNS_ADMIN=지갑폴더경로",UserID,UserPW); 클라우드 DB 설정
-//, "ADMIN", "Madwolves9810!"
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -16,6 +15,8 @@ public class ConnectionHelper {
 			}
 				else if(dsn.equalsIgnoreCase("oracle")) {
 				
+				// ("jdbc:oracle:thin:@DB이름_medium?TNS_ADMIN=지갑폴더경로",UserID,UserPW); 클라우드 DB 설정
+				//, "ADMIN", "Madwolves9810!"
 				Class.forName("oracle.jdbc.OracleDriver");
 				conn = DriverManager.getConnection("jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/Project/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA", "ADMIN", "Madwolves9810!");
 
