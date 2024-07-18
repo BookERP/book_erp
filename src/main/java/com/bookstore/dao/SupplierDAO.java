@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 package src.main.java.com.bookstore.dao;
 
 import src.main.java.com.bookstore.model.Supplier;
 import src.main.java.com.bookstore.util.ConnectionHelper;
-=======
-package main.java.com.bookstore.dao;
-
-import main.java.com.bookstore.model.Supplier;
-import main.java.com.bookstore.util.ConnectionHelper;
->>>>>>> 1dfa6bbc17224b955e85a46774d317d7b18704ab
 
 import java.sql.*;
 import java.util.ArrayList;

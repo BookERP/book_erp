@@ -9,6 +9,9 @@ public class User {
     private String userId;
     private String username;
     private String password;
+    // 홍엽이 phone, address 추가
+    private String phone;
+    private String address;
     private String email;
     private UserRole role;
     private LocalDateTime registrationDate;
@@ -25,7 +28,16 @@ public class User {
         this.registrationDate = LocalDateTime.now();
     }
 
-    // Getters and Setters
+    public User(String userId, String username, String phone, 
+    			String email, String address) {
+    	this.userId = userId;
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+	}
+
+	// Getters and Setters
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
     public String getUsername() { return username; }
@@ -38,5 +50,12 @@ public class User {
     public void setRole(UserRole role) { this.role = role; }
     public LocalDateTime getRegistrationDate() { return registrationDate; }
     public void setRegistrationDate(LocalDateTime registrationDate) { this.registrationDate = registrationDate; }
+
+	public String getPhone() { return phone; }
+	public void setPhone(String phone) { this.phone = phone; }
+
+	public String getAddress() { return address; }
+	public void setAddress(String address) { this.address = address; }
+    
 }
 

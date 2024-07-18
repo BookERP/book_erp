@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 package src.main.java.com.bookstore.service;
 
 import javax.swing.*;
-import src.main.java.com.bookstore.util.ConnectionHelper;
-=======
-package main.java.com.bookstore.service;
 
-import javax.swing.*;
-import main.java.com.bookstore.util.ConnectionHelper;
->>>>>>> 1dfa6bbc17224b955e85a46774d317d7b18704ab
+import src.main.java.com.bookstore.util.ConnectionHelper;
+import src.main.java.com.bookstore.view.MyPagePanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -235,10 +230,10 @@ public class LoginService extends JFrame {
         JLabel welcomeLabel = new JLabel("Welcome to the Dashboard!");
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dashboard.add(welcomeLabel);
-<<<<<<< HEAD
         
 //        JButton prodBtn, invenBtn, mypageBtn, logoutBtn, memBtn;
         // 화면 하단에 여러 개의 버튼을 가진 패널을 추가해준다.
+        // 버튼 클릭하면 새 창이 뜨게 한다.
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new FlowLayout());
         
@@ -246,13 +241,30 @@ public class LoginService extends JFrame {
         JButton logoutBtn = new JButton("로그아웃");
         
 //        logoutBtn.setHorizontalAlignment(SwingConstants.SOUTH);
+     // 버튼을 누르면 리스너 발동되서 새 창이 나오게 한다.
+        // 마이페이지 뜨게 함
+        mypageBtn.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		MyPagePanel myPage = new MyPagePanel();
+        		myPage.setVisible(true);
+            }
+        });
+        
+        // 로그아웃 구현
+        logoutBtn.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		dashboard.dispose(); // 현재 창 닫기
+            }
+        });
         
         panSouth.add(mypageBtn, BorderLayout.SOUTH);
         panSouth.add(logoutBtn, BorderLayout.SOUTH);
-//        dashboard.add(logoutBtn);   
+        
+        
+        
         dashboard.getContentPane().add(panSouth, "South");
-=======
->>>>>>> 1dfa6bbc17224b955e85a46774d317d7b18704ab
 
         dashboard.setVisible(true);
     }
