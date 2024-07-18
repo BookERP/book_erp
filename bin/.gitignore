@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # IntelliJ IDEA
 .idea/
 *.iml
@@ -28,3 +29,7 @@ node_modules/
 /ojdbc11-full/
 /out/
 /src/
+=======
+/main/
+/META-INF/
+>>>>>>> 7b319a791e5091d9948c751fc01b17ee8701fec7

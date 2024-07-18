@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -14,13 +15,16 @@ import javax.swing.table.DefaultTableModel;
 
 import src.main.java.com.bookstore.dao.EmployeeDAO;
 import src.main.java.com.bookstore.model.Employee;
+import src.main.java.com.bookstore.service.LoginService;
 
 public class MyPagePanel extends JFrame {
 	private JTable employeeTable;
 	private DefaultTableModel tableModel;
 	private EmployeeDAO employeeDAO;
+	private String EmployeeID;
 	
 	public MyPagePanel() {
+		this.EmployeeID = EmployeeID;
 		employeeDAO = new EmployeeDAO();
 		setTitle("MyPage");
         setSize(800, 600);
@@ -48,9 +52,27 @@ public class MyPagePanel extends JFrame {
 	}
 	
 	private void loadEmployees() {
-		List<Employee> employees = employeeDAO.getEmployee();
-		tableModel.setRowCount(0);
-		for (Employee employee : employees) {
+//		List<Employee> employees = employeeDAO.getEmployees();
+//		tableModel.setRowCount(0);
+//		for (Employee employee : employees) {
+//			employeeDAO.setEmployeeID(employee.getEMPLOYEEID());
+//			Employee detailedEmployee = (Employee) employeeDAO.getEmployeeByID();
+//			if (detailedEmployee != null) {
+//				tableModel.addRow(new Object[] {
+//					employee.getEMPLOYEEID(),
+//					employee.getNAME(),
+//					employee.getPosition(),
+//					employee.getPhone(),
+//					employee.getEmail(),
+//					employee.getHireDate()
+//				});
+//			}
+//		}
+		String employeeID = LoginService.loggedInEmployeeID;
+		employeeDAO.setEmployeeID(employeeID);
+		Employee employee = employeeDAO.getEmployeeByID();
+		if (employee != null) {
+			tableModel.setRowCount(0);
 			tableModel.addRow(new Object[] {
 				employee.getEMPLOYEEID(),
 				employee.getNAME(),
@@ -59,6 +81,8 @@ public class MyPagePanel extends JFrame {
 				employee.getEmail(),
 				employee.getHireDate()
 			});
+		} else {
+			JOptionPane.showMessageDialog(this, "No employee found with ID: " + EmployeeID);
 		}
 	}
 	
