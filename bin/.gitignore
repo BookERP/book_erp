@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # IntelliJ IDEA
 .idea/
 *.iml
@@ -12,9 +11,6 @@
 *.DS_Store
 Thumbs.db
 
-# DB Connector
-ConnectionHelper.java
-
 # Maven
 target/
 
@@ -24,12 +20,4 @@ build/
 
 # Node.js
 node_modules/
-
-/ojdbc11-full.tar.gz
-/ojdbc11-full/
-/out/
 /src/
-=======
-/main/
-/META-INF/
->>>>>>> 7b319a791e5091d9948c751fc01b17ee8701fec7
