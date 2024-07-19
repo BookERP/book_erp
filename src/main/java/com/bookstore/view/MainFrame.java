@@ -1,6 +1,8 @@
 package main.java.com.bookstore.view;
 
 import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import main.java.com.bookstore.service.LoginService;
@@ -10,6 +12,7 @@ public class MainFrame extends JFrame {
         setTitle("ERP");
         setSize(1600, 1200);
         setMenuBar();
+        addImageToCenter(); // Add this line to call the method
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ensure the application exits when the frame is closed
     }
@@ -72,6 +75,19 @@ public class MainFrame extends JFrame {
                 new LoginService().setVisible(true); // 로그인 서비스 열기
             }
         });
+    }
+    
+    private void addImageToCenter() {
+        // Load the image
+        ImageIcon imageIcon = new ImageIcon("C:/oracle/Project/BookERP/src/main/java/com/bookstore/view/logo02.jpg");
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(650, 700,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg);  // transform it back
+
+        JLabel imageLabel = new JLabel(imageIcon);
+
+        // Center the image
+        add(imageLabel, BorderLayout.CENTER);
     }
 
     public static void main(String[] args) {
