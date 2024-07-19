@@ -18,6 +18,9 @@ public class LoginService extends JFrame {
     private JPanel mainPanel;
     private JPanel loginPanel;
     private JPanel registrationPanel;
+    
+    // 로그인된 사용자의 EmployeeID를 저장하는 정적 필드
+    public static String loggedInEmployeeID;
 
     // Instance variables for login fields
     private JTextField txtUsername;
@@ -179,6 +182,7 @@ public class LoginService extends JFrame {
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
+            	loggedInEmployeeID = rs.getString("EMPLOYEEID");
                 JOptionPane.showMessageDialog(this, "로그인 성공!!");
                 this.dispose(); // Close the login window
                 new MainFrame().setVisible(true); // Open the MainFrame
@@ -210,6 +214,7 @@ public class LoginService extends JFrame {
             pst.setString(5, email);
             pst.setString(6, address);
             pst.setTimestamp(7, registrationDate);
+            
 
             int result = pst.executeUpdate();
             if (result > 0) {
@@ -224,6 +229,7 @@ public class LoginService extends JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

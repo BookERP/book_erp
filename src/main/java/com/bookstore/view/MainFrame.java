@@ -24,11 +24,13 @@ public class MainFrame extends JFrame {
         JMenuItem hrManagement = new JMenuItem("인사 관리");
         JMenuItem exitItem = new JMenuItem("프로그램 종료");
         JMenuItem logout = new JMenuItem("로그아웃");
+        JMenuItem myPage = new JMenuItem("회원정보");
 
         management.add(productManagement);
         management.add(customerManagement);
         management.add(hrManagement);
         
+        usermanagement.add(myPage);
         usermanagement.add(logout);
         usermanagement.addSeparator();
         usermanagement.add(exitItem);
@@ -37,6 +39,14 @@ public class MainFrame extends JFrame {
         jMenuBar.add(usermanagement);
 
         setJMenuBar(jMenuBar);
+        
+        //마이페이지
+        myPage.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		new MyPagePanel().setVisible(true);
+        	}
+        });
         
         // 상품 관리
         productManagement.addActionListener(new ActionListener() {
