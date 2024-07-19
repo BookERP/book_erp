@@ -23,7 +23,7 @@ public class ProductManagementGUI extends JFrame {
     public ProductManagementGUI() {
         productDAO = new ProductDAO();
         supplierDAO = new SupplierDAO();
-        setTitle("Product Management");
+        setTitle("상품 관리");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -70,13 +70,22 @@ public class ProductManagementGUI extends JFrame {
         JButton btnUpdate = new JButton("수정");
         JButton btnDelete = new JButton("삭제");
         JButton btnSearch = new JButton("검색");
+        JButton btnSelectAll = new JButton("전체 목록 보기");
 
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnDelete);
         buttonPanel.add(btnSearch);
+        buttonPanel.add(btnSelectAll);
 
         add(buttonPanel, BorderLayout.SOUTH);
+        
+        btnSelectAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	loadProducts();
+            }
+        });
 
         btnAdd.addActionListener(new ActionListener() {
             @Override
