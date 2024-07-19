@@ -1,89 +1,74 @@
 package main.java.com.bookstore.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
-import java.sql.SQLException;
-import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import main.java.com.bookstore.dao.EmployeeDAO;
 import main.java.com.bookstore.model.Employee;
 import main.java.com.bookstore.service.LoginService;
 
 public class MyPagePanel extends JFrame {
-	private JTable employeeTable;
-	private DefaultTableModel tableModel;
 	private EmployeeDAO employeeDAO;
 	private String EmployeeID;
 	
 	public MyPagePanel() {
-		this.EmployeeID = EmployeeID;
+		this.EmployeeID = LoginService.loggedInEmployeeID;
 		employeeDAO = new EmployeeDAO();
 		setTitle("MyPage");
-        setSize(800, 600);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-        
-        tableModel = new DefaultTableModel(new String[]{"Employee ID", "Name", "Position", "Phone", "Email", "HireDate"}, 0);
-        employeeTable = new JTable(tableModel);
-        add(new JScrollPane(employeeTable), BorderLayout.CENTER);
-//        add(new JScrollPane(employeeTable));
-//        try {
-//        	employeeDAO = new CustomerDAO();
-//			User user = customerDAO.selectMyUser("test");
-//			
-//			add(new JLabel("ID: " + user.getUserId()));
-//	        add(new JLabel("Name: " + user.getUsername()));
-//	        add(new JLabel("Phone: " + user.getUserId()));
-//	        add(new JLabel("Email: " + user.getEmail()));
-//	        add(new JLabel("Address: " + user.getAddress()));
-//		} catch(SQLException e) {
-//			e.printStackTrace();
-//		}
         loadEmployees();
 	}
 	
 	private void loadEmployees() {
-//		List<Employee> employees = employeeDAO.getEmployees();
-//		tableModel.setRowCount(0);
-//		for (Employee employee : employees) {
-//			employeeDAO.setEmployeeID(employee.getEMPLOYEEID());
-//			Employee detailedEmployee = (Employee) employeeDAO.getEmployeeByID();
-//			if (detailedEmployee != null) {
-//				tableModel.addRow(new Object[] {
-//					employee.getEMPLOYEEID(),
-//					employee.getNAME(),
-//					employee.getPosition(),
-//					employee.getPhone(),
-//					employee.getEmail(),
-//					employee.getHireDate()
-//				});
-//			}
-//		}
-		String employeeID = LoginService.loggedInEmployeeID;
-		employeeDAO.setEmployeeID(employeeID);
+		employeeDAO.setEmployeeID(EmployeeID);
 		Employee employee = employeeDAO.getEmployeeByID();
 		if (employee != null) {
-			tableModel.setRowCount(0);
-			tableModel.addRow(new Object[] {
-				employee.getEMPLOYEEID(),
-				employee.getNAME(),
-				employee.getPosition(),
-				employee.getPhone(),
-				employee.getEmail(),
-				employee.getHireDate()
-			});
+			JPanel infoPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+//            infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+            infoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+            
+            infoPanel.add(createLabel("직원 ID : "));
+            infoPanel.add(createLabel(employee.getEMPLOYEEID()));
+            infoPanel.add(createLabel("직원 이름 : "));
+            infoPanel.add(createLabel(employee.getNAME()));
+            infoPanel.add(createLabel("직급 : "));
+            infoPanel.add(createLabel(employee.getPosition()));
+            infoPanel.add(createLabel("직원 연락처 : "));
+            infoPanel.add(createLabel(employee.getPhone()));
+            infoPanel.add(createLabel("직원 이메일 : "));
+            infoPanel.add(createLabel(employee.getEmail()));
+            infoPanel.add(createLabel("입사일자 : "));
+            infoPanel.add(createLabel(employee.getHireDate().toString()));
+            
+            add(infoPanel, BorderLayout.CENTER);
 		} else {
 			JOptionPane.showMessageDialog(this, "No employee found with ID: " + EmployeeID);
 		}
+	}
+	
+	private JLabel createLabel(String text) {
+		JLabel label = new JLabel(text);
+        label.setBorder(BorderFactory.createCompoundBorder(
+        	new LineBorder(Color.BLACK, 1), // 테두리 추가
+            new EmptyBorder(5, 5, 5, 5) // 라벨에 여백 추가
+        ));
+        label.setHorizontalAlignment(SwingConstants.CENTER); // 텍스트 가운데 정렬
+        return label;
 	}
 	
 	public static void main(String[] args) {

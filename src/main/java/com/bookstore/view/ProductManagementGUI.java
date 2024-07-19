@@ -143,6 +143,37 @@ public class ProductManagementGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "상품 고유번호를 입력하세요.");
             return;
         }
+        String name = txtName.getText();
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "도서명을 입력하세요.");
+            return;
+        }
+        String author = txtAuthor.getText();
+        if (author.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "저자를 입력하세요.");
+            return;
+        }
+        String publisher = txtPublisher.getText();
+        if (publisher.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "출판사를 입력하세요.");
+            return;
+        }
+        String price = txtPrice.getText();
+        if (price.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "가격을 입력하세요.");
+            return;
+        }
+        String stockQunaity = txtStockQuantity.getText();
+        if (stockQunaity.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "재고 수를 입력하세요.");
+            return;
+        }
+        String category = txtCategory.getText();
+        if (category.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "카테고리를 입력하세요.");
+            return;
+        }
+        
         Product product = new Product();
         product.setProductId(txtProductId.getText());
         product.setSupplierId((String) comboSupplierId.getSelectedItem());
@@ -162,6 +193,37 @@ public class ProductManagementGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "상품 고유번호를 입력하세요.");
             return;
         }
+        String name = txtName.getText();
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "도서명을 입력하세요.");
+            return;
+        }
+        String author = txtAuthor.getText();
+        if (author.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "저자를 입력하세요.");
+            return;
+        }
+        String publisher = txtPublisher.getText();
+        if (publisher.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "출판사를 입력하세요.");
+            return;
+        }
+        String price = txtPrice.getText();
+        if (price.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "가격을 입력하세요.");
+            return;
+        }
+        String stockQunaity = txtStockQuantity.getText();
+        if (stockQunaity.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "재고 수를 입력하세요.");
+            return;
+        }
+        String category = txtCategory.getText();
+        if (category.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "카테고리를 입력하세요.");
+            return;
+        }
+        
         Product product = new Product();
         product.setProductId(txtProductId.getText());
         product.setSupplierId((String) comboSupplierId.getSelectedItem());
