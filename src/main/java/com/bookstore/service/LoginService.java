@@ -1,7 +1,8 @@
 package main.java.com.bookstore.service;
 
 import javax.swing.*;
-import main.java.com.bookstore.view.ProductManagementGUI;
+
+import main.java.com.bookstore.view.MainFrame;
 import main.java.com.bookstore.util.ConnectionHelper;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,8 +27,6 @@ public class LoginService extends JFrame {
     private JTextField txtId, txtName, txtPhone, txtEmail, txtAddress;
     private JPasswordField txtRegPassword;
 
-    ProductManagementGUI pm = new ProductManagementGUI();
-    
     public LoginService() {
         setTitle("User Management");
         setSize(400, 500);
@@ -181,7 +180,8 @@ public class LoginService extends JFrame {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 JOptionPane.showMessageDialog(this, "로그인 성공!!");
-                pm.main(null);
+                this.dispose(); // Close the login window
+                new MainFrame().setVisible(true); // Open the MainFrame
             } else {
                 JOptionPane.showMessageDialog(this, "아이디 혹은 비밀번호를 확인하세요.");
             }
@@ -193,16 +193,15 @@ public class LoginService extends JFrame {
     }
 
     private void registerUser(String username, String password, String name, String phone, String email, String address) {
-        
-    	if (username.isEmpty() || password.isEmpty() || name.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty() || name.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
             JOptionPane.showMessageDialog(this, "모든 정보를 입력하세요.");
             return;
         }
-    	Timestamp registrationDate = Timestamp.valueOf(LocalDateTime.now());
+        Timestamp registrationDate = Timestamp.valueOf(LocalDateTime.now());
 
         try {
             Connection conn = ConnectionHelper.getConnection("oracle");
-            String query = "INSERT INTO EMPLOYEE (EMPLOYEEID, EPW, NAME, PHONE, EMAIL,POSITION , HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO EMPLOYEE (EMPLOYEEID, EPW, NAME, PHONE, EMAIL, POSITION, HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
@@ -224,19 +223,6 @@ public class LoginService extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
-    }
-
-    private void showDashboard() {
-        JFrame dashboard = new JFrame("Dashboard");
-        dashboard.setSize(400, 300);
-        dashboard.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        dashboard.setLocationRelativeTo(null);
-
-        JLabel welcomeLabel = new JLabel("Welcome to the Dashboard!");
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        dashboard.add(welcomeLabel);
-
-        dashboard.setVisible(true);
     }
 
     public static void main(String[] args) {
