@@ -33,6 +33,25 @@ public class ProductDAO {
         return products;
     }
     
+    public String getNextProductId() {
+        String query = "SELECT MAX(PRODUCTID) AS MAX_ID FROM PRODUCT";
+        try (Connection conn = ConnectionHelper.getConnection("oracle");
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String maxId = rs.getString("MAX_ID");
+                if (maxId != null) {
+                    String[] parts = maxId.split("-");
+                    int idNumber = Integer.parseInt(parts[1]);
+                    return String.format("KOSA-%04d", idNumber + 1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "KOSA-0001";
+    }
+    
     public Product getProductById(String productId) {
         Product product = null;
         Connection conn = ConnectionHelper.getConnection("oracle");
