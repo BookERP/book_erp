@@ -244,6 +244,13 @@ public class ProductManagementGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "상품 고유번호를 입력하세요.");
             return;
         }
+
+        Product product = productDAO.getProductById(productId);
+        if (product == null) {
+            JOptionPane.showMessageDialog(this, "존재하지 않는 상품입니다.");
+            return;
+        }
+
         productDAO.deleteProduct(productId);
         loadProducts();
     }

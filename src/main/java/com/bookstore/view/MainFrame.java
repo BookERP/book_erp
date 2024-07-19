@@ -22,14 +22,16 @@ public class MainFrame extends JFrame {
         JMenu management = new JMenu("업무 목록");
         JMenu usermanagement = new JMenu("마이페이지");
 
-        JMenuItem productManagement = new JMenuItem("상품 관리");
-        JMenuItem customerManagement = new JMenuItem("고객 관리");
-        JMenuItem hrManagement = new JMenuItem("인사 관리");
+        JMenuItem productManagement = new JMenuItem("상품관리");
+        JMenuItem customerManagement = new JMenuItem("고객관리");
+        JMenuItem hrManagement = new JMenuItem("인사관리");
         JMenuItem exitItem = new JMenuItem("프로그램 종료");
         JMenuItem logout = new JMenuItem("로그아웃");
         JMenuItem myPage = new JMenuItem("회원정보");
+        JMenuItem inventory = new JMenuItem("재고관리");
 
         management.add(productManagement);
+        management.add(inventory);
         management.add(customerManagement);
         management.add(hrManagement);
         
@@ -42,6 +44,14 @@ public class MainFrame extends JFrame {
         jMenuBar.add(usermanagement);
 
         setJMenuBar(jMenuBar);
+        
+        //재고관리
+        inventory.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		new InventoryManagementGUI().setVisible(true);
+        	}
+        });
         
         //마이페이지
         myPage.addActionListener(new ActionListener() {

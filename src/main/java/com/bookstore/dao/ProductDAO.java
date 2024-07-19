@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
-
+	
+	
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         Connection conn = ConnectionHelper.getConnection("oracle");
@@ -110,6 +111,25 @@ public class ProductDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+
+    public List<String> getAllProductIds() {
+        List<String> productIds = new ArrayList<>();
+        String query = "SELECT PRODUCTID FROM PRODUCT";
+
+        try (Connection conn = ConnectionHelper.getConnection("oracle");
+             PreparedStatement pst = conn.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                productIds.add(rs.getString("PRODUCTID"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productIds;
     }
 
     public void deleteProduct(String productId) {
