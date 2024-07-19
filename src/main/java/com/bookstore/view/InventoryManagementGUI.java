@@ -30,7 +30,7 @@ public class InventoryManagementGUI extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel inputPanel = new JPanel(new GridLayout(4, 2));
-
+        
         inputPanel.add(new JLabel("제품 고유번호"));
         comboProductId = new JComboBox<>();
         loadProducts();
@@ -86,7 +86,7 @@ public class InventoryManagementGUI extends JFrame {
                 loadInventories();
             }
         });
-
+        
         btnDel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,7 @@ public class InventoryManagementGUI extends JFrame {
             comboProductId.addItem(product.getProductId());
         }
     }
-
+    
     private void deleteInventory() {
         String inventoryId = JOptionPane.showInputDialog(this, "삭제할 재고의 고유번호를 입력하세요:");
         if (inventoryId == null || inventoryId.isEmpty()) {
@@ -111,7 +111,7 @@ public class InventoryManagementGUI extends JFrame {
             return;
         }
         inventoryDAO.deleteInventory(inventoryId);
-        loadInventories(); // 데이터 삭제 후 목록을 갱신
+        loadInventories();
     }
 
     private void loadProductDetails() {

@@ -18,7 +18,7 @@ public class LoginService extends JFrame {
     private JPanel mainPanel;
     private JPanel loginPanel;
     private JPanel registrationPanel;
-    
+
     // 로그인된 사용자의 EmployeeID를 저장하는 정적 필드
     public static String loggedInEmployeeID;
 
@@ -175,21 +175,20 @@ public class LoginService extends JFrame {
 
     private void loginUser(String username, String password) {
         try {
-            Connection conn = ConnectionHelper.getConnection("oracle");
+            Connection conn = ConnectionHelper.getConnection();
             String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-            	loggedInEmployeeID = rs.getString("EMPLOYEEID");
+                loggedInEmployeeID = rs.getString("EMPLOYEEID");
                 JOptionPane.showMessageDialog(this, "로그인 성공!!");
                 this.dispose(); // Close the login window
                 new MainFrame().setVisible(true); // Open the MainFrame
             } else {
                 JOptionPane.showMessageDialog(this, "아이디 혹은 비밀번호를 확인하세요.");
             }
-            conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
@@ -204,7 +203,7 @@ public class LoginService extends JFrame {
         Timestamp registrationDate = Timestamp.valueOf(LocalDateTime.now());
 
         try {
-            Connection conn = ConnectionHelper.getConnection("oracle");
+            Connection conn = ConnectionHelper.getConnection();
             String query = "INSERT INTO EMPLOYEE (EMPLOYEEID, EPW, NAME, PHONE, EMAIL, POSITION, HIREDATE) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
@@ -214,7 +213,6 @@ public class LoginService extends JFrame {
             pst.setString(5, email);
             pst.setString(6, address);
             pst.setTimestamp(7, registrationDate);
-            
 
             int result = pst.executeUpdate();
             if (result > 0) {
@@ -223,13 +221,11 @@ public class LoginService extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "회원가입을 실패하셨습니다. 다시 확인해 주세요.");
             }
-            conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

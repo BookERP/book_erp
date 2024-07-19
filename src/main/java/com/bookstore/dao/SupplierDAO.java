@@ -11,10 +11,16 @@ import java.util.List;
 
 public class SupplierDAO {
 
+	private Connection conn;
+
+    public SupplierDAO() {
+        conn = ConnectionHelper.getConnection();
+    }
+	
     public List<Supplier> getAllSuppliers() {
         List<Supplier> suppliers = new ArrayList<>();
         String query = "SELECT SUPPLIERID, NAME FROM SUPPLIER";
-        try (Connection conn = ConnectionHelper.getConnection("oracle");
+        try (
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {

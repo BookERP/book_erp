@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.controller;
+package main.java.com.bookstore.controller;
 
 public class Admin {
 }

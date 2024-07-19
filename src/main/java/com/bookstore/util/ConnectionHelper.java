@@ -1,32 +1,44 @@
 package main.java.com.bookstore.util;
 
-
-// ("jdbc:oracle:thin:@DB이름_medium?TNS_ADMIN=지갑폴더경로",UserID,UserPW); 클라우드 DB 설정
-//, "ADMIN", "Madwolves9810!"
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionHelper {
-	//함수 (접근자 : public , static)
-	public static Connection getConnection(String dsn) {
-		Connection conn = null;	
-		try {
-			if(dsn.equalsIgnoreCase("mysql")){
-				Class.forName("com.mysql.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SampleDB","sozoo","mysql");
-			}
-				else if(dsn.equalsIgnoreCase("oracle")) {
-				
-				// ("jdbc:oracle:thin:@DB이름_medium?TNS_ADMIN=지갑폴더경로",UserID,UserPW); 클라우드 DB 설정
-				//, "ADMIN", "Madwolves9810!"
-				Class.forName("oracle.jdbc.OracleDriver");
-				conn = DriverManager.getConnection("jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/Project/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA", "ADMIN", "Madwolves9810!");
-				System.out.println("connection sucess!!");
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			return conn;
-		}
-	}
+    private static Connection connection;
+
+    private ConnectionHelper() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            synchronized (ConnectionHelper.class) {
+                if (connection == null) {
+                    try {
+                        String url = "jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/Project/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA";
+                        String user = "ADMIN";
+                        String password = "Madwolves9810!";
+                        connection = DriverManager.getConnection(url, user, password);
+                        System.out.println("연결완료!");
+          
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return connection;
+    }
+
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                connection = null;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -10,10 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO {
+	
+	private Connection conn;
+
+    public CustomerDAO() {
+        conn = ConnectionHelper.getConnection();
+    }
+	
 	public User selectMyUser(String userID) throws SQLException {
 		List<Product> myuser = new ArrayList<>();
 		User user = null;
-		Connection conn = ConnectionHelper.getConnection("oracle");
 		String query = "SELECT CUSTOMERID, NAME, PHONE, EMAIL, ADRESS, RDATE FROM Customer where CustomerID = ?";
 		// ?의 경우 로그인할 때 저장된 아이디를 가져와야 한다/
 		try(PreparedStatement pstmt = conn.prepareStatement(query)) {

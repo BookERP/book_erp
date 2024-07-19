@@ -11,11 +11,16 @@ import main.java.com.bookstore.model.Employee;
 import main.java.com.bookstore.util.ConnectionHelper;
 
 public class EmployeeDAO {
+	
+	private Connection conn;
+
+    public EmployeeDAO() {
+        conn = ConnectionHelper.getConnection();
+    }
 	private String employeeID;
 
 	public List<Employee> getEmployees() {
 		List<Employee> employees = new ArrayList<>();
-		Connection conn = ConnectionHelper.getConnection("oracle");
 		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE FROM Employee";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
@@ -37,7 +42,6 @@ public class EmployeeDAO {
 
 	public Employee getEmployeeByID() {
 		Employee employee = null;
-		Connection conn = ConnectionHelper.getConnection("oracle");
 		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {

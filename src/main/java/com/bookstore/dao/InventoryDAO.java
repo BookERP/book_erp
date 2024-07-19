@@ -8,9 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryDAO {
+	
+	private Connection conn;
+
+    public InventoryDAO() {
+        conn = ConnectionHelper.getConnection();
+    }
+	
     public List<Inventory> getAllInventories() {
         List<Inventory> inventories = new ArrayList<>();
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "SELECT * FROM INVENTORY";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -30,7 +36,6 @@ public class InventoryDAO {
 
     public Inventory getInventoryById(String inventoryId) {
         Inventory inventory = null;
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "SELECT * FROM INVENTORY WHERE INVENTORYID = ?";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, inventoryId);
@@ -50,7 +55,6 @@ public class InventoryDAO {
     }
 
     public void addInventory(Inventory inventory) {
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "INSERT INTO INVENTORY (INVENTORYID, PRODUCTID, STOCKQ, LOCATION) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, inventory.getInventoryId());
@@ -64,7 +68,6 @@ public class InventoryDAO {
     }
     
     public void deleteInventory(String inventoryId) {
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "DELETE FROM INVENTORY WHERE INVENTORYID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, inventoryId);
@@ -81,7 +84,7 @@ public class InventoryDAO {
 
     public String getNextInventoryId() {
         String query = "SELECT MAX(INVENTORYID) AS MAX_ID FROM INVENTORY";
-        try (Connection conn = ConnectionHelper.getConnection("oracle");
+        try (
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {

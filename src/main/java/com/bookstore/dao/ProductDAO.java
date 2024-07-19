@@ -9,10 +9,14 @@ import java.util.List;
 
 public class ProductDAO {
 	
+	private Connection conn;
+
+    public ProductDAO() {
+        conn = ConnectionHelper.getConnection();
+    }
 	
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "SELECT * FROM PRODUCT";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -36,7 +40,7 @@ public class ProductDAO {
     
     public String getNextProductId() {
         String query = "SELECT MAX(PRODUCTID) AS MAX_ID FROM PRODUCT";
-        try (Connection conn = ConnectionHelper.getConnection("oracle");
+        try(
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
@@ -55,7 +59,6 @@ public class ProductDAO {
     
     public Product getProductById(String productId) {
         Product product = null;
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "SELECT * FROM PRODUCT WHERE PRODUCTID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, productId);
@@ -78,7 +81,6 @@ public class ProductDAO {
     }
 
     public void addProduct(Product product) {
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "INSERT INTO PRODUCT (PRODUCTID, SUPPLIERID, NAME, AUTHOR, PUBLISHER, PRICE, STOCKQ, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, product.getProductId());
@@ -96,7 +98,6 @@ public class ProductDAO {
     }
 
     public void updateProduct(Product product) {
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "UPDATE PRODUCT SET SUPPLIERID = ?, NAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, STOCKQ = ?, CATEGORY = ? WHERE PRODUCTID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, product.getSupplierId());
@@ -118,7 +119,7 @@ public class ProductDAO {
         List<String> productIds = new ArrayList<>();
         String query = "SELECT PRODUCTID FROM PRODUCT";
 
-        try (Connection conn = ConnectionHelper.getConnection("oracle");
+        try (
              PreparedStatement pst = conn.prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
 
@@ -133,7 +134,6 @@ public class ProductDAO {
     }
 
     public void deleteProduct(String productId) {
-        Connection conn = ConnectionHelper.getConnection("oracle");
         String query = "DELETE FROM PRODUCT WHERE PRODUCTID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, productId);
