@@ -1,8 +1,8 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.DAO;
 
-import src.main.java.com.bookstore.model.Product;
-import src.main.java.com.bookstore.model.User;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.model.Product;
+import main.java.com.bookstore.model.User;
+import main.java.com.bookstore.util.ConnectionHelper;
 
 import java.sql.*;
 import java.time.LocalDateTime;

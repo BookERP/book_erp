@@ -1,9 +1,9 @@
-package src.main.java.com.bookstore.service;
+package main.java.com.bookstore.service;
 
 import javax.swing.*;
 
-import src.main.java.com.bookstore.view.MainFrame;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.view.MainFrame;
+import main.java.com.bookstore.util.ConnectionHelper;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

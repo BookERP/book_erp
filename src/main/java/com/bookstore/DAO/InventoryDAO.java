@@ -1,7 +1,7 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.DAO;
 
-import src.main.java.com.bookstore.model.Inventory;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.model.Inventory;
+import main.java.com.bookstore.util.ConnectionHelper;
 
 import java.sql.*;
 import java.util.ArrayList;

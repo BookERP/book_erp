@@ -1,11 +1,11 @@
-package src.main.java.com.bookstore.view;
+package main.java.com.bookstore.view;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import src.main.java.com.bookstore.service.LoginService;
+import main.java.com.bookstore.service.LoginService;
 
 public class MainFrame extends JFrame {
     public MainFrame() {
@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
     
     private void addImageToCenter() {
         // Load the image
-        ImageIcon imageIcon = new ImageIcon("C:/Users/user/git/BookERP/src/main/java/com/bookstore/view/logo02.jpg");
+        ImageIcon imageIcon = new ImageIcon("C:/Users/user/git/book_erp/src/main/java/com/bookstore/view/logo02.jpg");
         Image image = imageIcon.getImage(); // transform it 
         Image newimg = image.getScaledInstance(650, 700,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         imageIcon = new ImageIcon(newimg);  // transform it back

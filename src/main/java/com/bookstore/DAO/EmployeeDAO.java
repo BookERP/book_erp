@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.com.bookstore.model.Employee;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.model.Employee;
+import main.java.com.bookstore.util.ConnectionHelper;
 
 public class EmployeeDAO {
 	

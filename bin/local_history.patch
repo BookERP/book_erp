@@ -1,0 +1,929 @@
+Index: .idea/vcs.xml
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+--- a/.idea/vcs.xml	
++++ /dev/null	
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/bookERP.iml
+===================================================================
+diff --git a/.idea/bookERP.iml b/.idea/bookERP.iml
+deleted file mode 100644
+--- a/.idea/bookERP.iml	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	
++++ /dev/null	
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/bookERP.iml" filepath="$PROJECT_DIR$/.idea/bookERP.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	(date 1721119235421)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" default="true">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/main/java/com/bookstore/util/DBConnection.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/util/DBConnection.java b/src/main/java/com/bookstore/util/DBConnection.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/util/DBConnection.java	
++++ /dev/null	
+@@ -1,23 +0,0 @@
+-package main.java.com.bookstore.util;
+-
+-import java.sql.Connection;
+-import java.sql.DriverManager;
+-import java.sql.SQLException;
+-
+-public class DBConnection {
+-    private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+-    private static final String USER = "your_username";
+-    private static final String PASSWORD = "your_password";
+-
+-    static {
+-        try {
+-            Class.forName("oracle.jdbc.driver.OracleDriver");
+-        } catch (ClassNotFoundException e) {
+-            e.printStackTrace();
+-        }
+-    }
+-
+-    public static Connection getConnection() throws SQLException {
+-        return DriverManager.getConnection(URL, USER, PASSWORD);
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/bookstore/model/User.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/User.java b/src/main/java/com/bookstore/model/User.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/User.java	
++++ /dev/null	
+@@ -1,48 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Getter;
+-import lombok.NoArgsConstructor;
+-import lombok.Setter;
+-
+-import java.time.LocalDateTime;
+-
+-//@Getter
+-//@Setter
+-//@AllArgsConstructor
+-//@NoArgsConstructor
+-public class User {
+-    private String userId;
+-    private String username;
+-    private String password;
+-    private String email;
+-    private UserRole role;
+-    private LocalDateTime registrationDate;
+-
+-
+-    public User() {}
+-
+-    public User(String userId, String username, String password, String email, UserRole role) {
+-        this.userId = userId;
+-        this.username = username;
+-        this.password = password;
+-        this.email = email;
+-        this.role = role;
+-        this.registrationDate = LocalDateTime.now();
+-    }
+-
+-    // Getters and Setters
+-    public String getUserId() { return userId; }
+-    public void setUserId(String userId) { this.userId = userId; }
+-    public String getUsername() { return username; }
+-    public void setUsername(String username) { this.username = username; }
+-    public String getPassword() { return password; }
+-    public void setPassword(String password) { this.password = password; }
+-    public String getEmail() { return email; }
+-    public void setEmail(String email) { this.email = email; }
+-    public UserRole getRole() { return role; }
+-    public void setRole(UserRole role) { this.role = role; }
+-    public LocalDateTime getRegistrationDate() { return registrationDate; }
+-    public void setRegistrationDate(LocalDateTime registrationDate) { this.registrationDate = registrationDate; }
+-}
+-
+Index: src/main/java/com/bookstore/model/Order.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/Order.java b/src/main/java/com/bookstore/model/Order.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/Order.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public class Order {
+-}
+Index: src/main/java/com/bookstore/model/Product.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/Product.java b/src/main/java/com/bookstore/model/Product.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/Product.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public class Product {
+-}
+Index: src/main/java/com/bookstore/model/Customer.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/Customer.java b/src/main/java/com/bookstore/model/Customer.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/Customer.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public class Customer {
+-}
+Index: src/main/java/com/bookstore/model/Employee.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/Employee.java b/src/main/java/com/bookstore/model/Employee.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/Employee.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public class Employee {
+-}
+Index: src/main/java/com/bookstore/model/Supplier.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/Supplier.java b/src/main/java/com/bookstore/model/Supplier.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/Supplier.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public class Supplier {
+-}
+Index: src/main/java/com/bookstore/model/UserRole.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/model/UserRole.java b/src/main/java/com/bookstore/model/UserRole.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/model/UserRole.java	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-package main.java.com.bookstore.model;
+-
+-public enum UserRole {
+-    CUSTOMER,
+-    EMPLOYEE,
+-    ADMIN
+-}
+Index: src/main/java/com/bookstore/Main.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/Main.java b/src/main/java/com/bookstore/Main.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/Main.java	
++++ /dev/null	
+@@ -1,7 +0,0 @@
+-package main.java.com.bookstore;
+-
+-public class Main {
+-    public static void main(String[] args) {
+-
+-    }
+-}
+Index: src/main/java/com/bookstore/view/MainFrame.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/MainFrame.java b/src/main/java/com/bookstore/view/MainFrame.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/MainFrame.java	
++++ /dev/null	
+@@ -1,62 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-import main.java.com.bookstore.controller.AuthController;
+-import main.java.com.bookstore.service.AuthService;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-
+-public class MainFrame extends JFrame {
+-    private CardLayout cardLayout;
+-    private JPanel contentPanel;
+-    private LoginPanel loginPanel;
+-    private RegisterPanel registerPanel;
+-    private AuthController authController;
+-
+-    public MainFrame() {
+-        setTitle("Bookstore Management System");
+-        setSize(400, 300);
+-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+-        setLocationRelativeTo(null);
+-
+-        initComponents();
+-        initControllers();
+-    }
+-
+-    private void initComponents() {
+-        cardLayout = new CardLayout();
+-        contentPanel = new JPanel(cardLayout);
+-
+-        loginPanel = new LoginPanel();
+-        registerPanel = new RegisterPanel();
+-
+-        contentPanel.add(loginPanel, "login");
+-        contentPanel.add(registerPanel, "register");
+-
+-        add(contentPanel);
+-
+-        JMenuBar menuBar = new JMenuBar();
+-        JMenu menu = new JMenu("Options");
+-        JMenuItem loginItem = new JMenuItem("Login");
+-        JMenuItem registerItem = new JMenuItem("Register");
+-
+-        loginItem.addActionListener(e -> cardLayout.show(contentPanel, "login"));
+-        registerItem.addActionListener(e -> cardLayout.show(contentPanel, "register"));
+-
+-        menu.add(loginItem);
+-        menu.add(registerItem);
+-        menuBar.add(menu);
+-        setJMenuBar(menuBar);
+-    }
+-
+-    private void initControllers() {
+-        AuthService authService = new AuthService();
+-        authController = new AuthController(authService, loginPanel, registerPanel);
+-    }
+-
+-    public static void main(String[] args) {
+-        SwingUtilities.invokeLater(() -> {
+-            new MainFrame().setVisible(true);
+-        });
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/bookstore/view/LoginPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/LoginPanel.java b/src/main/java/com/bookstore/view/LoginPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/LoginPanel.java	
++++ /dev/null	
+@@ -1,60 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-import java.awt.event.ActionListener;
+-
+-public class LoginPanel extends JPanel {
+-    private JTextField usernameField;
+-    private JPasswordField passwordField;
+-    private JButton loginButton;
+-
+-    public LoginPanel() {
+-        setLayout(new GridBagLayout());
+-        initComponents();
+-    }
+-
+-    private void initComponents() {
+-        GridBagConstraints gbc = new GridBagConstraints();
+-        gbc.insets = new Insets(5, 5, 5, 5);
+-
+-        JLabel usernameLabel = new JLabel("Username:");
+-        gbc.gridx = 0;
+-        gbc.gridy = 0;
+-        add(usernameLabel, gbc);
+-
+-        usernameField = new JTextField(20);
+-        gbc.gridx = 1;
+-        gbc.gridy = 0;
+-        add(usernameField, gbc);
+-
+-        JLabel passwordLabel = new JLabel("Password:");
+-        gbc.gridx = 0;
+-        gbc.gridy = 1;
+-        add(passwordLabel, gbc);
+-
+-        passwordField = new JPasswordField(20);
+-        gbc.gridx = 1;
+-        gbc.gridy = 1;
+-        add(passwordField, gbc);
+-
+-        loginButton = new JButton("Login");
+-        gbc.gridx = 1;
+-        gbc.gridy = 2;
+-        gbc.anchor = GridBagConstraints.EAST;
+-        add(loginButton, gbc);
+-    }
+-
+-    public void setLoginButtonListener(ActionListener listener) {
+-        loginButton.addActionListener(listener);
+-    }
+-
+-    public String getUsername() {
+-        return usernameField.getText();
+-    }
+-
+-    public String getPassword() {
+-        return new String(passwordField.getPassword());
+-    }
+-}
+-
+Index: src/main/java/com/bookstore/view/OrderPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/OrderPanel.java b/src/main/java/com/bookstore/view/OrderPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/OrderPanel.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-public class OrderPanel {
+-}
+Index: src/main/java/com/bookstore/view/ProductPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/ProductPanel.java b/src/main/java/com/bookstore/view/ProductPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/ProductPanel.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-public class ProductPanel {
+-}
+Index: src/main/java/com/bookstore/view/CustomerPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/CustomerPanel.java b/src/main/java/com/bookstore/view/CustomerPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/CustomerPanel.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-public class CustomerPanel {
+-}
+Index: src/main/java/com/bookstore/view/EmployeePanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/EmployeePanel.java b/src/main/java/com/bookstore/view/EmployeePanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/EmployeePanel.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-public class EmployeePanel {
+-}
+Index: src/main/java/com/bookstore/view/RegisterPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/RegisterPanel.java b/src/main/java/com/bookstore/view/RegisterPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/RegisterPanel.java	
++++ /dev/null	
+@@ -1,74 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-import java.awt.event.ActionListener;
+-
+-public class RegisterPanel extends JPanel {
+-    private JTextField usernameField;
+-    private JPasswordField passwordField;
+-    private JTextField emailField;
+-    private JButton registerButton;
+-
+-    public RegisterPanel() {
+-        setLayout(new GridBagLayout());
+-        initComponents();
+-    }
+-
+-    private void initComponents() {
+-        GridBagConstraints gbc = new GridBagConstraints();
+-        gbc.insets = new Insets(5, 5, 5, 5);
+-
+-        JLabel usernameLabel = new JLabel("Username:");
+-        gbc.gridx = 0;
+-        gbc.gridy = 0;
+-        add(usernameLabel, gbc);
+-
+-        usernameField = new JTextField(20);
+-        gbc.gridx = 1;
+-        gbc.gridy = 0;
+-        add(usernameField, gbc);
+-
+-        JLabel passwordLabel = new JLabel("Password:");
+-        gbc.gridx = 0;
+-        gbc.gridy = 1;
+-        add(passwordLabel, gbc);
+-
+-        passwordField = new JPasswordField(20);
+-        gbc.gridx = 1;
+-        gbc.gridy = 1;
+-        add(passwordField, gbc);
+-
+-        JLabel emailLabel = new JLabel("Email:");
+-        gbc.gridx = 0;
+-        gbc.gridy = 2;
+-        add(emailLabel, gbc);
+-
+-        emailField = new JTextField(20);
+-        gbc.gridx = 1;
+-        gbc.gridy = 2;
+-        add(emailField, gbc);
+-
+-        registerButton = new JButton("Register");
+-        gbc.gridx = 1;
+-        gbc.gridy = 3;
+-        gbc.anchor = GridBagConstraints.EAST;
+-        add(registerButton, gbc);
+-    }
+-
+-    public void setRegisterButtonListener(ActionListener listener) {
+-        registerButton.addActionListener(listener);
+-    }
+-
+-    public String getUsername() {
+-        return usernameField.getText();
+-    }
+-
+-    public String getPassword() {
+-        return new String(passwordField.getPassword());
+-    }
+-
+-    public String getEmail() {
+-        return emailField.getText();
+-    }
+-}
+Index: src/main/java/com/bookstore/view/SupplierPanel.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/view/SupplierPanel.java b/src/main/java/com/bookstore/view/SupplierPanel.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/view/SupplierPanel.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.view;
+-
+-public class SupplierPanel {
+-}
+Index: src/main/java/com/bookstore/controller/Admin.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/controller/Admin.java b/src/main/java/com/bookstore/controller/Admin.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/controller/Admin.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.controller;
+-
+-public class Admin {
+-}
+Index: src/main/java/com/bookstore/controller/Customer.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/controller/Customer.java b/src/main/java/com/bookstore/controller/Customer.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/controller/Customer.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.controller;
+-
+-public class Customer {
+-}
+Index: src/main/java/com/bookstore/controller/AuthController.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/controller/AuthController.java b/src/main/java/com/bookstore/controller/AuthController.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/controller/AuthController.java	
++++ /dev/null	
+@@ -1,59 +0,0 @@
+-package main.java.com.bookstore.controller;
+-
+-import main.java.com.bookstore.model.User;
+-import main.java.com.bookstore.service.AuthService;
+-import main.java.com.bookstore.view.LoginPanel;
+-import main.java.com.bookstore.view.RegisterPanel;
+-
+-import javax.swing.*;
+-
+-public class AuthController {
+-    private AuthService authService;
+-    private LoginPanel loginPanel;
+-    private RegisterPanel registerPanel;
+-
+-    public AuthController(AuthService authService, LoginPanel loginPanel, RegisterPanel registerPanel) {
+-        this.authService = authService;
+-        this.loginPanel = loginPanel;
+-        this.registerPanel = registerPanel;
+-        initListeners();
+-    }
+-
+-    private void initListeners() {
+-        loginPanel.setLoginButtonListener(e -> login());
+-        registerPanel.setRegisterButtonListener(e -> register());
+-    }
+-
+-    private void login() {
+-        String username = loginPanel.getUsername();
+-        String password = loginPanel.getPassword();
+-        User user = authService.login(username, password);
+-        if (user != null) {
+-            JOptionPane.showMessageDialog(null, "로그인 성공!");
+-            // 메인 화면으로 전환하는 로직
+-        } else {
+-            JOptionPane.showMessageDialog(null, "로그인 실패. 사용자명과 비밀번호를 확인해주세요.");
+-        }
+-    }
+-
+-    private void register() {
+-        // 회원가입 로직 구현
+-        String username = registerPanel.getUsername();
+-        String password = registerPanel.getPassword();
+-        String email = registerPanel.getEmail();
+-
+-        if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+-            JOptionPane.showMessageDialog(null, "모든 필드를 입력해주세요.");
+-            return;
+-        }
+-
+-        boolean success = authService.register(username, password, email);
+-        if (success) {
+-            JOptionPane.showMessageDialog(null, "회원가입 성공!");
+-            // TODO: 로그인 화면으로 전환하는 로직
+-        } else {
+-            JOptionPane.showMessageDialog(null, "회원가입 실패. 다시 시도해주세요.");
+-        }
+-    }
+-}
+-
+Index: src/main/java/com/bookstore/service/AuthService.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/service/AuthService.java b/src/main/java/com/bookstore/service/AuthService.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/service/AuthService.java	
++++ /dev/null	
+@@ -1,47 +0,0 @@
+-package main.java.com.bookstore.service;
+-
+-import main.java.com.bookstore.DAO.UserDAO;
+-import main.java.com.bookstore.model.User;
+-import main.java.com.bookstore.model.UserRole;
+-
+-import java.sql.SQLException;
+-import java.util.UUID;
+-
+-public class AuthService {
+-    private UserDAO userDAO;
+-
+-    public AuthService() {
+-        this.userDAO = new UserDAO();
+-    }
+-
+-    public boolean register(String username, String password, String email) {
+-        User user = new User(
+-                UUID.randomUUID().toString(),
+-                username,
+-                password,  // 실제 애플리케이션에서는 비밀번호를 해시화해야 합니다.
+-                email,
+-                UserRole.CUSTOMER
+-        );
+-
+-        try {
+-            userDAO.insert(user);
+-            return true;
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-            return false;
+-        }
+-    }
+-
+-    public User login(String username, String password) {
+-        try {
+-            User user = userDAO.getByUsername(username);
+-            if (user != null && user.getPassword().equals(password)) {  // 실제 애플리케이션에서는 해시된 비밀번호를 비교해야 합니다.
+-                return user;
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return null;
+-    }
+-}
+-
+Index: src/main/java/com/bookstore/service/UserService.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/service/UserService.java b/src/main/java/com/bookstore/service/UserService.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/service/UserService.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package main.java.com.bookstore.service;
+-
+-public class UserService {
+-}
+Index: src/main/java/com/bookstore/DAO/UserDAO.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/DAO/UserDAO.java b/src/main/java/com/bookstore/DAO/UserDAO.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/DAO/UserDAO.java	
++++ /dev/null	
+@@ -1,104 +0,0 @@
+-package main.java.com.bookstore.DAO;
+-
+-import main.java.com.bookstore.model.User;
+-import main.java.com.bookstore.model.UserRole;
+-import main.java.com.bookstore.util.DBConnection;
+-
+-import java.sql.*;
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class UserDAO implements DatabaseOperations<User> {
+-    @Override
+-    public void insert(User user) throws SQLException {
+-        String sql = "INSERT INTO Users (UserId, Username, Password, Email, Role, RegistrationDate) VALUES (?, ?, ?, ?, ?, ?)";
+-        try (Connection conn = DBConnection.getConnection();
+-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+-            pstmt.setString(1, user.getUserId());
+-            pstmt.setString(2, user.getUsername());
+-            pstmt.setString(3, user.getPassword());
+-            pstmt.setString(4, user.getEmail());
+-            pstmt.setString(5, user.getRole().name());
+-            pstmt.setTimestamp(6, Timestamp.valueOf(user.getRegistrationDate()));
+-            pstmt.executeUpdate();
+-        }
+-    }
+-
+-    @Override
+-    public User getById(String id) throws SQLException {
+-        String sql = "SELECT * FROM Users WHERE UserId = ?";
+-        try (Connection conn = DBConnection.getConnection();
+-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+-            pstmt.setString(1, id);
+-            try (ResultSet rs = pstmt.executeQuery()) {
+-                if (rs.next()) {
+-                    return extractUserFromResultSet(rs);
+-                }
+-            }
+-        }
+-        return null;
+-    }
+-
+-    @Override
+-    public List<User> getAll() throws SQLException {
+-        List<User> users = new ArrayList<>();
+-        String sql = "SELECT * FROM Users";
+-        try (Connection conn = DBConnection.getConnection();
+-             Statement stmt = conn.createStatement();
+-             ResultSet rs = stmt.executeQuery(sql)) {
+-            while (rs.next()) {
+-                users.add(extractUserFromResultSet(rs));
+-            }
+-        }
+-        return users;
+-    }
+-
+-    @Override
+-    public void update(User user) throws SQLException {
+-        String sql = "UPDATE Users SET Username = ?, Password = ?, Email = ?, Role = ? WHERE UserId = ?";
+-        try (Connection conn = DBConnection.getConnection();
+-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+-            pstmt.setString(1, user.getUsername());
+-            pstmt.setString(2, user.getPassword());
+-            pstmt.setString(3, user.getEmail());
+-            pstmt.setString(4, user.getRole().name());
+-            pstmt.setString(5, user.getUserId());
+-            pstmt.executeUpdate();
+-        }
+-    }
+-
+-    @Override
+-    public void delete(String id) throws SQLException {
+-        String sql = "DELETE FROM Users WHERE UserId = ?";
+-        try (Connection conn = DBConnection.getConnection();
+-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+-            pstmt.setString(1, id);
+-            pstmt.executeUpdate();
+-        }
+-    }
+-
+-    public User getByUsername(String username) throws SQLException {
+-        String sql = "SELECT * FROM Users WHERE Username = ?";
+-        try (Connection conn = DBConnection.getConnection();
+-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+-            pstmt.setString(1, username);
+-            try (ResultSet rs = pstmt.executeQuery()) {
+-                if (rs.next()) {
+-                    return extractUserFromResultSet(rs);
+-                }
+-            }
+-        }
+-        return null;
+-    }
+-
+-    private User extractUserFromResultSet(ResultSet rs) throws SQLException {
+-        User user = new User();
+-        user.setUserId(rs.getString("UserId"));
+-        user.setUsername(rs.getString("Username"));
+-        user.setPassword(rs.getString("Password"));
+-        user.setEmail(rs.getString("Email"));
+-        user.setRole(UserRole.valueOf(rs.getString("Role")));
+-        user.setRegistrationDate(rs.getTimestamp("RegistrationDate").toLocalDateTime());
+-        return user;
+-    }
+-}
+Index: src/main/java/com/bookstore/DAO/DatabaseOperations.java
+===================================================================
+diff --git a/src/main/java/com/bookstore/DAO/DatabaseOperations.java b/src/main/java/com/bookstore/DAO/DatabaseOperations.java
+deleted file mode 100644
+--- a/src/main/java/com/bookstore/DAO/DatabaseOperations.java	
++++ /dev/null	
+@@ -1,12 +0,0 @@
+-package main.java.com.bookstore.DAO;
+-
+-import java.sql.SQLException;
+-import java.util.List;
+-
+-public interface DatabaseOperations<T> {
+-    void insert(T t) throws SQLException;
+-    T getById(String id) throws SQLException;
+-    List<T> getAll() throws SQLException;
+-    void update(T t) throws SQLException;
+-    void delete(String id) throws SQLException;
+-}
+Index: src/resources/index.html
+===================================================================
+diff --git a/src/resources/index.html b/src/resources/index.html
+deleted file mode 100644
+--- a/src/resources/index.html	
++++ /dev/null	
+@@ -1,13 +0,0 @@
+-<!doctype html>
+-<html lang="en">
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport"
+-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+-    <title>Document</title>
+-</head>
+-<body>
+-
+-</body>
+-</html>
+\ No newline at end of file
+Index: info/디렉토리구조.txt
+===================================================================
+diff --git a/info/디렉토리구조.txt b/info/디렉토리구조.txt
+deleted file mode 100644
+--- a/info/디렉토리구조.txt	
++++ /dev/null	
+@@ -1,89 +0,0 @@
+-src
+-└── main
+-    ├── java
+-    │   └── com
+-    │       └── bookstore
+-    │           ├── model
+-    │           ├── dao (현재 없음)
+-    │           ├── service
+-    │           ├── view
+-    │           ├── controller
+-    │           └── util
+-    └── resources
+-
+-
+-## 각 패키지의 역할:
+-
+-model: 데이터 모델 클래스들을 포함
+-dao: 데이터베이스 접근 객체(DAO) 클래스들을 포함
+-service: 비즈니스 로직을 처리하는 서비스 클래스들을 포함
+-view: GUI 관련 클래스들을 포함
+-controller: 모델과 뷰 사이의 상호작용을 관리하는 컨트롤러 클래스들을 포함
+-util: 유틸리티 클래스들 (예: 데이터베이스 연결, 날짜 포맷팅 등)을 포함
+-
+----
+-
+-
+-## 주요 클래스:
+-
+-모델:
+-
+-Customer.java
+-Order.java
+-Product.java
+-Supplier.java
+-Employee.java
+-
+-
+-DAO:
+-
+-CustomerDAO.java
+-OrderDAO.java
+-ProductDAO.java
+-SupplierDAO.java
+-EmployeeDAO.java
+-
+-
+-서비스:
+-
+-BookstoreService.java (모든 비즈니스 로직을 한 클래스에 통합)
+-
+-
+-뷰:
+-
+-MainFrame.java
+-CustomerPanel.java
+-OrderPanel.java
+-ProductPanel.java
+-SupplierPanel.java
+-EmployeePanel.java
+-
+-컨트롤러:
+-
+-BookstoreController.java (모든 컨트롤러 로직을 한 클래스에 통합)
+-
+-
+-유틸리티 :
+-
+-DBConnection.java
+-
+-
+----
+-
+-
+-## DB 연동을 위한 라이브러리 추가:
+-Oracle JDBC 드라이버 (예: ojdbc8.jar)
+-
+----
+-## 기본 기능과 구조
+-각 컨트롤러는 해당 서비스와 패널(뷰)을 가지고 있으며,
+-뷰의 이벤트 리스너를 초기화하고 관리합니다.
+-실제 비즈니스 로직은 서비스 클래스에서 처리되며, 컨트롤러는 사용자 입력을 받아 서비스 메서드를 호출하고 결과를 뷰에 반영하는 역할을 합니다.
+-각 메서드의 구체적인 구현은 실제 비즈니스 로직과 GUI 구현에 따라 달라질 수 있습니다.
+-이 기본 구조를 바탕으로 프로젝트의 요구사항에 맞게 확장하고 구체화할 수 있습니다.
+-
+-
+-
+-
+-
+-    
+\ No newline at end of file
+diff --git a/info/서점ERP_e-r다이어그램02.drawio.png b/info/서점ERP_e-r다이어그램02.drawio.png
+deleted file mode 100644
+index 45aec1ad2b67398b143050ade7d2fcc6da5f9587..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
