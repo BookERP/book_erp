@@ -1,7 +1,11 @@
-package main.java.com.bookstore;
+package src.main.java.com.bookstore;
 
-public class Main {
-    public static void main(String[] args) {
+import src.main.java.com.bookstore.service.LoginService;
+import src.main.java.com.bookstore.view.ProductManagementGUI;
 
-    }
+public class Main{
+	public static void main(String[] args) {
+		LoginService ls = new LoginService();
+		ls.main(args);
+	}
 }
