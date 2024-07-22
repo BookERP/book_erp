@@ -1,4 +1,4 @@
-package main.java.com.bookstore.model;
+package src.main.java.com.bookstore.model;
 
 public class Supplier {
     private String supplierId;

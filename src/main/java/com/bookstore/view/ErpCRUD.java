@@ -1,4 +1,4 @@
-package main.java.com.bookstore.view;
+package src.main.java.com.bookstore.view;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -21,8 +21,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.com.bookstore.model.MyModel;
-import main.java.com.bookstore.util.ConnectionHelper;
+import src.main.java.com.bookstore.model.MyModel;
+import src.main.java.com.bookstore.util.ConnectionHelper;
 
 
 public class ErpCRUD extends JFrame implements ActionListener{

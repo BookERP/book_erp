@@ -1,4 +1,4 @@
-package main.java.com.bookstore.model;
+package src.main.java.com.bookstore.model;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

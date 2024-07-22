@@ -1,4 +1,4 @@
-package main.java.com.bookstore.view;
+package src.main.java.com.bookstore.view;
 
 public class OrderPanel {
 }

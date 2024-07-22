@@ -1,11 +1,11 @@
-package main.java.com.bookstore.view;
+package src.main.java.com.bookstore.view;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import main.java.com.bookstore.service.LoginService;
+import src.main.java.com.bookstore.service.LoginService;
 
 public class MainFrame extends JFrame {
     public MainFrame() {
