@@ -1,0 +1,89 @@
+src
+└── main
+    ├── java
+    │   └── com
+    │       └── bookstore
+    │           ├── model
+    │           ├── dao (현재 없음)
+    │           ├── service
+    │           ├── view
+    │           ├── controller
+    │           └── util
+    └── resources
+
+
+## 각 패키지의 역할:
+
+model: 데이터 모델 클래스들을 포함
+dao: 데이터베이스 접근 객체(DAO) 클래스들을 포함
+service: 비즈니스 로직을 처리하는 서비스 클래스들을 포함
+view: GUI 관련 클래스들을 포함
+controller: 모델과 뷰 사이의 상호작용을 관리하는 컨트롤러 클래스들을 포함
+util: 유틸리티 클래스들 (예: 데이터베이스 연결, 날짜 포맷팅 등)을 포함
+
+---
+
+
+## 주요 클래스:
+
+모델:
+
+Customer.java
+Order.java
+Product.java
+Supplier.java
+Employee.java
+
+
+DAO:
+
+CustomerDAO.java
+OrderDAO.java
+ProductDAO.java
+SupplierDAO.java
+EmployeeDAO.java
+
+
+서비스:
+
+BookstoreService.java (모든 비즈니스 로직을 한 클래스에 통합)
+
+
+뷰:
+
+MainFrame.java
+CustomerPanel.java
+OrderPanel.java
+ProductPanel.java
+SupplierPanel.java
+EmployeePanel.java
+
+컨트롤러:
+
+BookstoreController.java (모든 컨트롤러 로직을 한 클래스에 통합)
+
+
+유틸리티 :
+
+DBConnection.java
+
+
+---
+
+
+## DB 연동을 위한 라이브러리 추가:
+Oracle JDBC 드라이버 (예: ojdbc8.jar)
+
+---
+## 기본 기능과 구조
+각 컨트롤러는 해당 서비스와 패널(뷰)을 가지고 있으며,
+뷰의 이벤트 리스너를 초기화하고 관리합니다.
+실제 비즈니스 로직은 서비스 클래스에서 처리되며, 컨트롤러는 사용자 입력을 받아 서비스 메서드를 호출하고 결과를 뷰에 반영하는 역할을 합니다.
+각 메서드의 구체적인 구현은 실제 비즈니스 로직과 GUI 구현에 따라 달라질 수 있습니다.
+이 기본 구조를 바탕으로 프로젝트의 요구사항에 맞게 확장하고 구체화할 수 있습니다.
+
+
+
+
+
+    
