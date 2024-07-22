@@ -45,6 +45,14 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(jMenuBar);
         
+        //회원관리
+        customerManagement.addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		new ErpCRUD().setVisible(true);
+        	}
+        });
+        
         //재고관리
         inventory.addActionListener(new ActionListener() {
         	@Override
