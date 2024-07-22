@@ -56,6 +56,11 @@ public class User {
 
 	public String getAddress() { return address; }
 	public void setAddress(String address) { this.address = address; }
+
+	 Object getRDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
 
