@@ -6,7 +6,7 @@ import main.java.com.bookstore.view.LoginPanel;
 import main.java.com.bookstore.view.RegisterPanel;
 
 import javax.swing.*;
-import jakarta.swing.*;
+//import jakarta.swing.*;
 
 public class AuthController {
     private AuthService authService;

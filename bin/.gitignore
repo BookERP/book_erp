@@ -1,1 +1,26 @@
-/main/
+# Eclipse
+.project
+.metadata
+.classpath
+.settings/
+bin/
+target/
+.springBeans
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# User-specific files
+*.swp
+*.swo
+*~
