@@ -19,14 +19,14 @@ public class SupplierDAO {
 	
     public List<Supplier> getAllSuppliers() {
         List<Supplier> suppliers = new ArrayList<>();
-        String query = "SELECT SUPPLIERID, NAME FROM SUPPLIER";
+        String query = "SELECT SUPPLIERID, SNAME FROM SUPPLIER";
         try (
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Supplier supplier = new Supplier();
                 supplier.setSupplierId(rs.getString("SUPPLIERID"));
-                supplier.setName(rs.getString("NAME"));
+                supplier.setName(rs.getString("SNAME"));
                 suppliers.add(supplier);
             }
         } catch (Exception e) {
