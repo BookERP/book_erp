@@ -1,4 +1,4 @@
-package main.java.com.bookstore.dao;
+package src.main.java.com.bookstore.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.bookstore.model.Employee;
-import main.java.com.bookstore.util.ConnectionHelper;
+import src.main.java.com.bookstore.model.Employee;
+import src.main.java.com.bookstore.util.ConnectionHelper;
 
 public class EmployeeDAO {
 	
@@ -42,7 +42,7 @@ public class EmployeeDAO {
 
 	public Employee getEmployeeByID() {
 		Employee employee = null;
-		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
+		String query = "SELECT EMPLOYEEID, ENAME, POSITION, EPHONE, EEMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, this.employeeID);
@@ -52,10 +52,10 @@ public class EmployeeDAO {
 //					String ID = employee.getEMPLOYEEID();
 					employee = new Employee();
 					employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
-					employee.setNAME(rs.getString("NAME"));
+					employee.setNAME(rs.getString("ENAME"));
 					employee.setPosition(rs.getString("POSITION"));
-					employee.setPhone(rs.getString("PHONE"));
-					employee.setEmail(rs.getString("EMAIL"));
+					employee.setPhone(rs.getString("EPHONE"));
+					employee.setEmail(rs.getString("EEMAIL"));
 					employee.setHireDate(rs.getDate("HIREDATE"));
 //					employees.add(employee);
 				}

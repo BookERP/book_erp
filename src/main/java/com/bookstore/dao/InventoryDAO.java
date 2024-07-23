@@ -1,7 +1,7 @@
-package main.java.com.bookstore.dao;
+package src.main.java.com.bookstore.dao;
 
-import main.java.com.bookstore.model.Inventory;
-import main.java.com.bookstore.util.ConnectionHelper;
+import src.main.java.com.bookstore.model.Inventory;
+import src.main.java.com.bookstore.util.ConnectionHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class InventoryDAO {
             while (rs.next()) {
                 Inventory inventory = new Inventory();
                 inventory.setInventoryId(rs.getString("INVENTORYID"));
-                inventory.setProductId(rs.getString("PRODUCTID"));
-                inventory.setCurrentQuantity(rs.getInt("STOCKQ")); 
+                inventory.setProductId(rs.getString("PID"));
+                inventory.setCurrentQuantity(rs.getInt("CURRENTQ")); 
                 inventory.setLocation(rs.getString("LOCATION"));
                 inventories.add(inventory);
             }
@@ -43,8 +43,8 @@ public class InventoryDAO {
                 if (rs.next()) {
                     inventory = new Inventory();
                     inventory.setInventoryId(rs.getString("INVENTORYID"));
-                    inventory.setProductId(rs.getString("PRODUCTID"));
-                    inventory.setCurrentQuantity(rs.getInt("STOCKQ")); 
+                    inventory.setProductId(rs.getString("PID"));
+                    inventory.setCurrentQuantity(rs.getInt("CURRENTQ")); 
                     inventory.setLocation(rs.getString("LOCATION"));
                 }
             }
@@ -55,7 +55,7 @@ public class InventoryDAO {
     }
 
     public void addInventory(Inventory inventory) {
-        String query = "INSERT INTO INVENTORY (INVENTORYID, PRODUCTID, STOCKQ, LOCATION) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO INVENTORY (INVENTORYID, PID, CURRENTQ, LOCATION) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, inventory.getInventoryId());
             pst.setString(2, inventory.getProductId());

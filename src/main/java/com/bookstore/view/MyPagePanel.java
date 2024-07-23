@@ -1,4 +1,4 @@
-package main.java.com.bookstore.view;
+package src.main.java.com.bookstore.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,9 +15,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import main.java.com.bookstore.dao.EmployeeDAO;
-import main.java.com.bookstore.model.Employee;
-import main.java.com.bookstore.service.LoginService;
+import src.main.java.com.bookstore.dao.EmployeeDAO;
+import src.main.java.com.bookstore.model.Employee;
+import src.main.java.com.bookstore.service.LoginService;
 
 public class MyPagePanel extends JFrame {
 	private EmployeeDAO employeeDAO;
