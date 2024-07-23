@@ -3,76 +3,60 @@ package main.java.com.bookstore.model;
 import java.util.Date;
 
 public class Customer {
+	private String CustomerId;
+	private String CustomerCpw;
+	private String Name;
+	private String Phone;
+	private String Email;
+	private String Address;
+	private Date RDate;
 	
-	private String customerId;
-	private String customerCpw;
-	private String customerName;
-	private String customerPhone;
-	private String customerEmail;
-	private String customerAddress;
-	private Date customerRdate;
 	
-//	public Customer(String strId, String strCpw, String strName, String strPhone, String strEmail, String strAddress, Date strRdate) {
-//		this.customerId = strId;
-//		this.customerCpw = strCpw;
-//		this.customerName = strName;
-//		this.customerPhone = strPhone;
-//		this.customerEmail = strEmail;
-//		this.customerAddress = strAddress;
-//		this.customerRdate = strRdate;
-//	}
-
 	public String getCustomerId() {
-		return customerId;
+		return CustomerId;
 	}
 	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+		CustomerId = customerId;
 	}
 	public String getCustomerCpw() {
-		return customerCpw;
+		return CustomerCpw;
 	}
 	public void setCustomerCpw(String customerCpw) {
-		this.customerCpw = customerCpw;
+		CustomerCpw = customerCpw;
 	}
-	public String getCustomerName() {
-		return customerName;
+	public String getName() {
+		return Name;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setName(String name) {
+		Name = name;
 	}
-	public String getCustomerPhone() {
-		return customerPhone;
+	public String getPhone() {
+		return Phone;
 	}
-	public void setCustomerPhone(String customerPhone) {
-		this.customerPhone = customerPhone;
+	public void setPhone(String phone) {
+		Phone = phone;
 	}
-	public String getCustomerEmail() {
-		return customerEmail;
+	public String getEmail() {
+		return Email;
 	}
-	public void setCustomerEmail(String customerEmail) {
-		this.customerEmail = customerEmail;
+	public void setEmail(String email) {
+		Email = email;
 	}
-	public String getCustomerAddress() {
-		return customerAddress;
+	public Date getRDate() {
+		return RDate;
 	}
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
+	public void setRDate(Date rdate) {
+		RDate = rdate;
 	}
-	public Date getCustomerRdate() {
-		return customerRdate;
+	public String getAddress() {
+		return Address;
 	}
-	public void setCustomerRdate(Date customerRdate) {
-		this.customerRdate = customerRdate;
+	public void setAddress(String address) {
+		Address = address;
 	}
-
 	@Override
 	public String toString() {
-		return "Customer [customerId=" + customerId + ", customerCpw=" + customerCpw + ", customerName=" + customerName
-				+ ", customerPhone=" + customerPhone + ", customerEmail=" + customerEmail + ", customerAddress="
-				+ customerAddress + ", customerRdate=" + customerRdate + "]";
+		return "Customer [CustomerId=" + CustomerId + ", CustomerCpw=" + CustomerCpw + ", Name=" + Name + ", Phone="
+				+ Phone + ", Email=" + Email + ", RDate=" + RDate + ", Address=" + Address + "]";
 	}
-	
-	
-	
-	
 }
