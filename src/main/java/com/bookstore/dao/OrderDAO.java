@@ -1,3 +1,9 @@
+package src.main.java.com.bookstore.dao;
+
+public class OrderDAO {
+	
+}
+
 //package src.main.java.com.bookstore.dao;
 //
 //import java.sql.Connection;

@@ -28,6 +28,7 @@ public class ProductDAO {
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
                 product.setPrice(rs.getDouble("PRICE"));
+                product.setStockQuantity(rs.getInt("STOCKQ"));
                 product.setCategory(rs.getString("CATEGORY"));
                 products.add(product);
             }
@@ -70,6 +71,7 @@ public class ProductDAO {
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
                 product.setPrice(rs.getDouble("PRICE"));
+                product.setStockQuantity(rs.getInt("STOCKQ"));
                 product.setCategory(rs.getString("CATEGORY"));
             }
         } catch (SQLException e) {
@@ -79,15 +81,18 @@ public class ProductDAO {
     }
 
     public void addProduct(Product product) {
-        String query = "INSERT INTO PRODUCT (PRODUCTID, SID, PNAME, AUTHOR, PUBLISHER, PRICE, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+//        String query = "INSERT INTO PRODUCT (PRODUCTID, SID, PNAME, AUTHOR, PUBLISHER, PRICE, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	String query = "INSERT INTO PRODUCT (PRODUCTID, SID, PNAME, AUTHOR, PUBLISHER, PRICE, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, product.getProductId());
             pstmt.setString(2, product.getSupplierId());
             pstmt.setString(3, product.getName());
             pstmt.setString(4, product.getAuthor());
             pstmt.setString(5, product.getPublisher());
             pstmt.setDouble(6, product.getPrice());
-            pstmt.setString(7, product.getCategory());
+//            pstmt.setString(7, product.getCategory());
+            pstmt.setInt(7, product.getStockQuantity());
+            pstmt.setString(8, product.getCategory());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,15 +100,19 @@ public class ProductDAO {
     }
 
     public void updateProduct(Product product) {
-        String query = "UPDATE PRODUCT SET SID = ?, PNAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, CATEGORY = ? WHERE PRODUCTID = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+//        String query = "UPDATE PRODUCT SET SID = ?, PNAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, CATEGORY = ? WHERE PRODUCTID = ?";
+    	String query = "UPDATE PRODUCT SET SUPPLIERID = ?, NAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, STOCKQ = ?, CATEGORY = ? WHERE PRODUCTID = ?";
+    	try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, product.getSupplierId());
             pstmt.setString(2, product.getName());
             pstmt.setString(3, product.getAuthor());
             pstmt.setString(4, product.getPublisher());
             pstmt.setDouble(5, product.getPrice());
-            pstmt.setString(6, product.getCategory());
-            pstmt.setString(7, product.getProductId());
+//            pstmt.setString(6, product.getCategory());
+//            pstmt.setString(7, product.getProductId());
+            pstmt.setInt(6, product.getStockQuantity());
+            pstmt.setString(7, product.getCategory());
+            pstmt.setString(8, product.getProductId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
