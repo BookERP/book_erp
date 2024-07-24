@@ -4,59 +4,59 @@ import java.util.Date;
 
 public class Customer {
 	private String CustomerId;
-	private String CustomerCpw;
-	private String Name;
-	private String Phone;
-	private String Email;
-	private String Address;
+	private String Cpw;
+	private String CName;
+	private String CPhone;
+	private String CEmail;
+	private String CAddress;
 	private Date RDate;
-	
-	
 	public String getCustomerId() {
 		return CustomerId;
 	}
 	public void setCustomerId(String customerId) {
-		CustomerId = customerId;
+		this.CustomerId = customerId;
 	}
-	public String getCustomerCpw() {
-		return CustomerCpw;
+	public String getCpw() {
+		return Cpw;
 	}
-	public void setCustomerCpw(String customerCpw) {
-		CustomerCpw = customerCpw;
+	public void setCpw(String cpw) {
+		this.Cpw = cpw;
 	}
-	public String getName() {
-		return Name;
+	public String getCName() {
+		return CName;
 	}
-	public void setName(String name) {
-		Name = name;
+	public void setCName(String cName) {
+		this.CName = cName;
 	}
-	public String getPhone() {
-		return Phone;
+	public String getCPhone() {
+		return CPhone;
 	}
-	public void setPhone(String phone) {
-		Phone = phone;
+	public void setCPhone(String cPhone) {
+		this.CPhone = cPhone;
 	}
-	public String getEmail() {
-		return Email;
+	public String getCEmail() {
+		return CEmail;
 	}
-	public void setEmail(String email) {
-		Email = email;
+	public void setCEmail(String cEmail) {
+		this.CEmail = cEmail;
+	}
+	public String getCAddress() {
+		return CAddress;
+	}
+	public void setCAddress(String cAddress) {
+		this.CAddress = cAddress;
 	}
 	public Date getRDate() {
 		return RDate;
 	}
-	public void setRDate(Date rdate) {
-		RDate = rdate;
-	}
-	public String getAddress() {
-		return Address;
-	}
-	public void setAddress(String address) {
-		Address = address;
+	public void setRDate(Date rDate) {
+		this.RDate = rDate;
 	}
 	@Override
 	public String toString() {
-		return "Customer [CustomerId=" + CustomerId + ", CustomerCpw=" + CustomerCpw + ", Name=" + Name + ", Phone="
-				+ Phone + ", Email=" + Email + ", RDate=" + RDate + ", Address=" + Address + "]";
+		return "Customer [CustomerId=" + CustomerId + ", Cpw=" + Cpw + ", CName=" + CName + ", CPhone=" + CPhone
+				+ ", CEmail=" + CEmail + ", CAddress=" + CAddress + ", RDate=" + RDate + "]";
 	}
+	
+	
 }
