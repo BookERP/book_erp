@@ -1,7 +1,9 @@
 package src.main.java.com.bookstore.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +37,22 @@ public class PaymentDAO {
         }
     	return payments;
     }
+
+	public Payment getPaymentById(String method) {
+		String query = "SELECT PAYMENTID, METHOD FROM PAYMENT WHERE METHOD = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, method);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Payment payment = new Payment();
+                    payment.setPaymentId(rs.getString("PAYMENTID"));
+                    payment.setMethod(rs.getString("METHOD"));
+                    return payment;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // 결제 정보를 찾지 못한 경우
+	}
 }
