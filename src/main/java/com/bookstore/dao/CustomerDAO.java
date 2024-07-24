@@ -1,44 +1,86 @@
 package main.java.com.bookstore.dao;
 
-import main.java.com.bookstore.model.Product;
-import main.java.com.bookstore.model.User;
-import main.java.com.bookstore.util.ConnectionHelper;
-
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.com.bookstore.model.Customer;
+import main.java.com.bookstore.util.ConnectionHelper;
+
 public class CustomerDAO {
-	
-	private Connection conn;
+    private Connection conn;
 
     public CustomerDAO() {
         conn = ConnectionHelper.getConnection();
     }
-	
-	public User selectMyUser(String userID) throws SQLException {
-		List<Product> myuser = new ArrayList<>();
-		User user = null;
-		String query = "SELECT CUSTOMERID, NAME, PHONE, EMAIL, ADRESS, RDATE FROM Customer where CustomerID = ?";
-		// ?의 경우 로그인할 때 저장된 아이디를 가져와야 한다/
-		try(PreparedStatement pstmt = conn.prepareStatement(query)) {
-			pstmt.setString(1, userID);
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				String id = rs.getString("CUSTOMERID");
-				String name = rs.getString("NAME");
-				String phone = rs.getString("PHONE");
-				String email = rs.getString("EMAIL");
-				String address = rs.getString("ADRESS");
-				user = new User(id, name, phone, email, address);
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (conn != null) conn.close();
-		}
-		return user;
-	}
+
+    public List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
+        String query = "SELECT * FROM CUSTOMER";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerId(rs.getString("CUSTOMERID"));
+                customer.setCName(rs.getString("CNAME"));
+                customer.setCPhone(rs.getString("CPHONE"));
+                customer.setCEmail(rs.getString("CEMAIL"));
+                customer.setCAddress(rs.getString("CADDRESS"));
+                customer.setRDate(rs.getDate("RDATE"));
+                customer.setCpw(rs.getString("CPW"));
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+
+    public Customer getCustomerByID(String customerId) {
+        Customer customer = null;
+        String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, customerId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                customer = new Customer();
+                customer.setCustomerId(rs.getString("CUSTOMERID"));
+                customer.setCName(rs.getString("CNAME"));
+                customer.setCPhone(rs.getString("CPHONE"));
+                customer.setCEmail(rs.getString("CEMAIL"));
+                customer.setCAddress(rs.getString("CADDRESS"));
+                customer.setRDate(rs.getDate("RDATE"));
+                customer.setCpw(rs.getString("CPW"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+    public void updateCustomer(Customer customer) {
+        String query = "UPDATE CUSTOMER SET CUSTOMERID = ?, CNAME = ?, CPHONE = ?, CEMAIL = ?, CADDRESS = ?, CPW = ? WHERE CUSTOMERID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, customer.getCustomerId());
+            pstmt.setString(2, customer.getCName());
+            pstmt.setString(3, customer.getCPhone());
+            pstmt.setString(4, customer.getCEmail());
+            pstmt.setString(5, customer.getCAddress());
+            pstmt.setString(6, customer.getCpw());
+            pstmt.setString(7, customer.getCustomerId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCustomer(String customerId) {
+        String query = "DELETE FROM CUSTOMER WHERE CUSTOMERID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, customerId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

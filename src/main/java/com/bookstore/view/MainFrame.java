@@ -45,11 +45,10 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(jMenuBar);
         
-        //회원관리
         customerManagement.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		new ErpCRUD().setVisible(true);
+        		new CustomerPanel().setVisible(true);
         	}
         });
         
@@ -97,7 +96,7 @@ public class MainFrame extends JFrame {
     
     private void addImageToCenter() {
         // Load the image
-        ImageIcon imageIcon = new ImageIcon("C:/oracle/Project/BookERP/src/main/java/com/bookstore/view/logo02.jpg");
+    	ImageIcon imageIcon = new ImageIcon("C:/oracle/Project/BookERP/src/main/java/com/bookstore/view/logo02.jpg");
         Image image = imageIcon.getImage(); // transform it 
         Image newimg = image.getScaledInstance(650, 700,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         imageIcon = new ImageIcon(newimg);  // transform it back
@@ -117,3 +116,6 @@ public class MainFrame extends JFrame {
         });
     }
 }
+
+
+//ImageIcon imageIcon = new ImageIcon("C:/oracle/Project/BookERP/src/main/java/com/bookstore/view/logo02.jpg");

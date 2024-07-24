@@ -26,8 +26,8 @@ public class Employee {
 	public String getNAME() {
 		return NAME;
 	}
-	public void setNAME(String nAME) {
-		NAME = nAME;
+	public void setNAME(String name) {
+		NAME = name;
 	}
 	public String getPosition() {
 		return Position;

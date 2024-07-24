@@ -21,7 +21,7 @@ public class EmployeeDAO {
 
 	public List<Employee> getEmployees() {
 		List<Employee> employees = new ArrayList<>();
-		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE FROM Employee";
+		String query = "SELECT EMPLOYEEID, ENAME, POSITION, EPHONE, EEMAIL, HIREDATE FROM Employee";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
@@ -29,8 +29,8 @@ public class EmployeeDAO {
 				employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
 				employee.setNAME(rs.getString("EMPLOYEEID"));
 				employee.setPosition(rs.getString("POSITION"));
-				employee.setPhone(rs.getString("PHONE"));
-				employee.setEmail(rs.getString("EMAIL"));
+				employee.setPhone(rs.getString("EPHONE"));
+				employee.setEmail(rs.getString("EEMAIL"));
 				employee.setHireDate(rs.getDate("HIREDATE"));
 				employees.add(employee);
 			}
@@ -42,7 +42,7 @@ public class EmployeeDAO {
 
 	public Employee getEmployeeByID() {
 		Employee employee = null;
-		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
+		String query = "SELECT EMPLOYEEID, ENAME, POSITION, EPHONE, EEMAIL, HIREDATE from Employee WHERE EMPLOYEEID = ?";
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, this.employeeID);
@@ -52,10 +52,10 @@ public class EmployeeDAO {
 //					String ID = employee.getEMPLOYEEID();
 					employee = new Employee();
 					employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
-					employee.setNAME(rs.getString("NAME"));
+					employee.setNAME(rs.getString("ENAME"));
 					employee.setPosition(rs.getString("POSITION"));
-					employee.setPhone(rs.getString("PHONE"));
-					employee.setEmail(rs.getString("EMAIL"));
+					employee.setPhone(rs.getString("EPHONE"));
+					employee.setEmail(rs.getString("EEMAIL"));
 					employee.setHireDate(rs.getDate("HIREDATE"));
 //					employees.add(employee);
 				}
