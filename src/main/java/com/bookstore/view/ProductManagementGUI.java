@@ -33,7 +33,7 @@ public class ProductManagementGUI extends JFrame {
         inputPanel.add(new JLabel("공급체 고유번호:"));
         comboSupplierId = new JComboBox<>();
         inputPanel.add(comboSupplierId);
-        loadSuppliers();
+        supplierDAO.loadSuppliers(comboSupplierId);
 
         inputPanel.add(new JLabel("도서명:"));
         txtName = new JTextField();
@@ -83,7 +83,7 @@ public class ProductManagementGUI extends JFrame {
         btnSelectAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	loadProducts();
+                loadProducts();
             }
         });
 
@@ -119,10 +119,7 @@ public class ProductManagementGUI extends JFrame {
     }
 
     private void loadSuppliers() {
-        List<Supplier> suppliers = supplierDAO.getAllSuppliers();
-        for (Supplier supplier : suppliers) {
-            comboSupplierId.addItem(supplier.getSupplierId());
-        }
+        supplierDAO.loadSuppliers(comboSupplierId);
     }
 
     private void loadProducts() {
@@ -131,8 +128,8 @@ public class ProductManagementGUI extends JFrame {
         for (Product product : products) {
             tableModel.addRow(new Object[]{
                 product.getProductId(),
-                product.getSupplierId(),
-                product.getName(),
+                product.getSID(),
+                product.getPname(),
                 product.getAuthor(),
                 product.getPublisher(),
                 product.getPrice(),
@@ -176,8 +173,8 @@ public class ProductManagementGUI extends JFrame {
 
         Product product = new Product();
         product.setProductId(productDAO.getNextProductId()); // Automatically generate product ID
-        product.setSupplierId((String) comboSupplierId.getSelectedItem());
-        product.setName(txtName.getText());
+        product.setSID((String) comboSupplierId.getSelectedItem());
+        product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
         product.setPrice(Double.parseDouble(price));
@@ -227,8 +224,8 @@ public class ProductManagementGUI extends JFrame {
         
         Product product = new Product();
         product.setProductId(productId);
-        product.setSupplierId((String) comboSupplierId.getSelectedItem());
-        product.setName(txtName.getText());
+        product.setSID((String) comboSupplierId.getSelectedItem());
+        product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
         product.setPrice(Double.parseDouble(txtPrice.getText()));
@@ -266,8 +263,8 @@ public class ProductManagementGUI extends JFrame {
             tableModel.setRowCount(0); // Clear existing data
             tableModel.addRow(new Object[]{
                 product.getProductId(),
-                product.getSupplierId(),
-                product.getName(),
+                product.getSID(),
+                product.getPname(),
                 product.getAuthor(),
                 product.getPublisher(),
                 product.getPrice(),

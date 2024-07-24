@@ -23,8 +23,8 @@ public class InventoryDAO {
             while (rs.next()) {
                 Inventory inventory = new Inventory();
                 inventory.setInventoryId(rs.getString("INVENTORYID"));
-                inventory.setProductId(rs.getString("PRODUCTID"));
-                inventory.setCurrentQuantity(rs.getInt("STOCKQ")); 
+                inventory.setPID(rs.getString("PID"));
+                inventory.setCurrentQuantity(rs.getInt("CURRENTQ")); 
                 inventory.setLocation(rs.getString("LOCATION"));
                 inventories.add(inventory);
             }
@@ -43,8 +43,8 @@ public class InventoryDAO {
                 if (rs.next()) {
                     inventory = new Inventory();
                     inventory.setInventoryId(rs.getString("INVENTORYID"));
-                    inventory.setProductId(rs.getString("PRODUCTID"));
-                    inventory.setCurrentQuantity(rs.getInt("STOCKQ")); 
+                    inventory.setPID(rs.getString("PID"));
+                    inventory.setCurrentQuantity(rs.getInt("CURRENTQ")); 
                     inventory.setLocation(rs.getString("LOCATION"));
                 }
             }
@@ -55,10 +55,10 @@ public class InventoryDAO {
     }
 
     public void addInventory(Inventory inventory) {
-        String query = "INSERT INTO INVENTORY (INVENTORYID, PRODUCTID, STOCKQ, LOCATION) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO INVENTORY (INVENTORYID, PID, CURRENTQ, LOCATION) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, inventory.getInventoryId());
-            pst.setString(2, inventory.getProductId());
+            pst.setString(2, inventory.getPID());
             pst.setInt(3, inventory.getCurrentQuantity());
             pst.setString(4, inventory.getLocation());
             pst.executeUpdate();

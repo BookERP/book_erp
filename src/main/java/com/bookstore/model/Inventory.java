@@ -2,7 +2,7 @@ package main.java.com.bookstore.model;
 
 public class Inventory {
     private String inventoryId;
-    private String productId;
+    private String PID;
     private int currentQuantity;
     private String location;
 
@@ -15,12 +15,12 @@ public class Inventory {
         this.inventoryId = inventoryId;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getPID() {
+        return PID;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setPID(String PID) {
+        this.PID = PID;
     }
 
     public int getCurrentQuantity() {

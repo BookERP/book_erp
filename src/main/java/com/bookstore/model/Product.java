@@ -2,8 +2,8 @@ package main.java.com.bookstore.model;
 
 public class Product {
     private String productId;
-    private String supplierId;
-    private String name;
+    private String SID;
+    private String Pname;
     private String author;
     private String publisher;
     private double price;
@@ -19,20 +19,20 @@ public class Product {
         this.productId = productId;
     }
 
-    public String getSupplierId() {
-        return supplierId;
+    public String getSID() {
+        return SID;
     }
 
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
+    public void setSID(String SID) {
+        this.SID = SID;
     }
 
-    public String getName() {
-        return name;
+    public String getPname() {
+        return Pname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPname(String Pname) {
+        this.Pname = Pname;
     }
 
     public String getAuthor() {

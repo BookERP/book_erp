@@ -119,7 +119,7 @@ public class InventoryManagementGUI extends JFrame {
         if (productId != null) {
             Product product = productDAO.getProductById(productId);
             if (product != null) {
-                txtProductName.setText(product.getName());
+                txtProductName.setText(product.getPname());
                 txtCurrentQuantity.setText(String.valueOf(product.getStockQuantity()));
             }
         }
@@ -129,11 +129,11 @@ public class InventoryManagementGUI extends JFrame {
         List<Inventory> inventories = inventoryDAO.getAllInventories();
         tableModel.setRowCount(0); // Clear existing data
         for (Inventory inventory : inventories) {
-            Product product = productDAO.getProductById(inventory.getProductId());
-            String productName = (product != null) ? product.getName() : "Unknown";
+            Product product = productDAO.getProductById(inventory.getPID());
+            String productName = (product != null) ? product.getPname() : "Unknown";
             tableModel.addRow(new Object[]{
                 inventory.getInventoryId(),
-                inventory.getProductId(),
+                inventory.getPID(),
                 productName,
                 inventory.getCurrentQuantity(),
                 inventory.getLocation()
@@ -156,7 +156,7 @@ public class InventoryManagementGUI extends JFrame {
 
         Inventory inventory = new Inventory();
         inventory.setInventoryId(inventoryDAO.getNextInventoryId()); // 자동으로 Inventory ID 생성
-        inventory.setProductId(productId);
+        inventory.setPID(productId);
         inventory.setCurrentQuantity(Integer.parseInt(currentQuantity));
         inventory.setLocation(location);
         inventoryDAO.addInventory(inventory);

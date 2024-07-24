@@ -109,7 +109,7 @@ public class ErpCRUD extends JFrame implements ActionListener{
 		add(new JScrollPane(table = new JTable()), "Center");
 		
 		// 창 닫기, 화면
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1000, 500);
 		setVisible(true);
 		

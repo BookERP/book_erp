@@ -23,8 +23,8 @@ public class ProductDAO {
             while (rs.next()) {
                 Product product = new Product();
                 product.setProductId(rs.getString("PRODUCTID"));
-                product.setSupplierId(rs.getString("SUPPLIERID"));
-                product.setName(rs.getString("NAME"));
+                product.setSID(rs.getString("SID"));
+                product.setPname(rs.getString("PNAME"));
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
                 product.setPrice(rs.getDouble("PRICE"));
@@ -66,8 +66,8 @@ public class ProductDAO {
             if (rs.next()) {
                 product = new Product();
                 product.setProductId(rs.getString("PRODUCTID"));
-                product.setSupplierId(rs.getString("SUPPLIERID"));
-                product.setName(rs.getString("NAME"));
+                product.setSID(rs.getString("SID"));
+                product.setPname(rs.getString("PNAME"));
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
                 product.setPrice(rs.getDouble("PRICE"));
@@ -81,11 +81,11 @@ public class ProductDAO {
     }
 
     public void addProduct(Product product) {
-        String query = "INSERT INTO PRODUCT (PRODUCTID, SUPPLIERID, NAME, AUTHOR, PUBLISHER, PRICE, STOCKQ, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO PRODUCT (PRODUCTID, SID, PNAME, AUTHOR, PUBLISHER, PRICE, STOCKQ, CATEGORY) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, product.getProductId());
-            pstmt.setString(2, product.getSupplierId());
-            pstmt.setString(3, product.getName());
+            pstmt.setString(2, product.getSID());
+            pstmt.setString(3, product.getPname());
             pstmt.setString(4, product.getAuthor());
             pstmt.setString(5, product.getPublisher());
             pstmt.setDouble(6, product.getPrice());
@@ -98,10 +98,10 @@ public class ProductDAO {
     }
 
     public void updateProduct(Product product) {
-        String query = "UPDATE PRODUCT SET SUPPLIERID = ?, NAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, STOCKQ = ?, CATEGORY = ? WHERE PRODUCTID = ?";
+        String query = "UPDATE PRODUCT SET SID = ?, PNAME = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?, STOCKQ = ?, CATEGORY = ? WHERE PRODUCTID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, product.getSupplierId());
-            pstmt.setString(2, product.getName());
+            pstmt.setString(1, product.getSID());
+            pstmt.setString(2, product.getPname());
             pstmt.setString(3, product.getAuthor());
             pstmt.setString(4, product.getPublisher());
             pstmt.setDouble(5, product.getPrice());
