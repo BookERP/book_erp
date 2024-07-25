@@ -12,7 +12,7 @@ public class BookService {
         bookDAO = new BookDAO();
     }
 
-    // 도서 추가
+    //  추가
     public void addBook(Book book) {
         // 도서 정보 유효성 검사
         if (book.getIsbn().isEmpty() || book.getAuthor().isEmpty()) {
@@ -21,27 +21,31 @@ public class BookService {
         bookDAO.create(book);
     }
 
-    // 도서 수정
+    //  수정
     public void updateBook(Book book) {
-        // 도서 정보 유효성 검사
         if (book.getBookId().isEmpty() || book.getIsbn().isEmpty()) {
             throw new IllegalArgumentException("도서 정보가 유효하지 않습니다.");
         }
         bookDAO.update(book);
     }
 
-    // 도서 삭제
+    //  삭제
     public void deleteBook(String bookId) {
         bookDAO.delete(bookId);
     }
 
-    // 도서 검색
+    //  검색
     public Book searchBook(String bookId) {
         return bookDAO.read(bookId);
     }
 
-    // 모든 도서 조회
+    // 모든 book 조회
     public List<Book> getAllBooks() {
         return bookDAO.readAll();
+    }
+    // 책 이름으로 검색
+    public Book searchBookByTitle(String bookTitle) {
+
+        return bookDAO.read(bookTitle);
     }
 }

@@ -15,5 +15,5 @@ public class Customer {
 	private String name;
 	private String phone;
 
-	// 생성자, getter/setter, toString(), equals(), hashCode() 메서드 추가
+	private String customerName;
 }

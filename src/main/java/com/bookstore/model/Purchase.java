@@ -16,15 +16,6 @@ public class Purchase {
     private String customerId;
     private Date purchaseDate;
 
+    private String bookTitle; // 구매한 책 제목 여따 박음
 
-    // 추가적으로 필요한 필드나 메서드 정의
-    private String bookTitle; // 구매한 책의 제목을 저장할 필드
-
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
 }

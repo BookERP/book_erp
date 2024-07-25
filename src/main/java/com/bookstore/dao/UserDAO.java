@@ -1,6 +1,5 @@
 package main.java.com.bookstore.dao;
 
-
 import main.java.com.bookstore.model.User;
 import main.java.com.bookstore.util.ConnectionHelper;
 

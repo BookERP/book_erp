@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Date;
 import java.util.Objects;
 
 @Getter
@@ -17,9 +16,6 @@ public class User {
 	private String pw;
 	private String cpw;
 	private String phone;
-
-	// 생성자, getter/setter, toString(), equals(), hashCode() 메서드 추가
-
 
 	@Override
 	public boolean equals(Object o) {
@@ -38,16 +34,5 @@ public class User {
 		result = 31 * result + Objects.hashCode(cpw);
 		result = 31 * result + Objects.hashCode(phone);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId='" + userId + '\'' +
-				", account='" + account + '\'' +
-				", pw='" + pw + '\'' +
-				", cpw='" + cpw + '\'' +
-				", phone='" + phone + '\'' +
-				'}';
 	}
 }

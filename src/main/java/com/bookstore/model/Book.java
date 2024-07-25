@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
 
 @Getter
 @Setter
@@ -20,6 +19,5 @@ public class Book {
     private double price;
     private String category;
     private String current;
-
-    // 생성자, getter/setter, toString(), equals(), hashCode() 메서드 추가
+    private String title;
 }

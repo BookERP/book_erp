@@ -1,8 +1,6 @@
 package main.java.com.bookstore.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ConnectionHelper {
     private static Connection connection;
@@ -16,7 +14,7 @@ public class ConnectionHelper {
             synchronized (ConnectionHelper.class) {
                 if (connection == null) {
                     try {
-                        String url = "jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/oracle/Project/BookERP/src/main/java/com/bookstore/wallet/Wallet_BookERPMSA";
+                        String url = "jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=D:/Wallet_BookERPMSA";
                         String user = "ADMIN";
                         String password = "Madwolves9810!";
                         connection = DriverManager.getConnection(url, user, password);
@@ -31,14 +29,19 @@ public class ConnectionHelper {
         return connection;
     }
 
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                connection = null;
-            } catch (SQLException e) {
-                e.printStackTrace();
+    protected void closeResources(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+        try {
+            if (rs != null) {
+                rs.close();
             }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

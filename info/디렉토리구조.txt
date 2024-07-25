@@ -1,109 +1,12 @@
-src
-└── main
-    ├── java
-    │   └── com
-    │       └── bookstore
-    │           ├── model
-    │           ├── dao
-    │           ├── service
-    │           ├── view
-    │           ├── controller
-    │           └── util
-    └── resources
-
-
-## 각 패키지의 역할:
-
-model: 데이터 모델 클래스들을 포함
-dao: 데이터베이스 접근 객체(DAO) 클래스들을 포함
-service: 비즈니스 로직을 처리하는 서비스 클래스들을 포함
-view: GUI 관련 클래스들을 포함
-controller: 모델과 뷰 사이의 상호작용을 관리하는 컨트롤러 클래스들을 포함
-util: 유틸리티 클래스들 (예: 데이터베이스 연결, 날짜 포맷팅 등)을 포함
-
----
-
-
-## 주요 클래스:
-
-모델:
-
-Customer.java
-Order.java
-Product.java
-Supplier.java
-Employee.java
-
-
-DAO:
-
-CustomerDAO.java
-OrderDAO.java
-ProductDAO.java
-SupplierDAO.java
-EmployeeDAO.java
-
-
-서비스:
-
-BookstoreService.java (모든 비즈니스 로직을 한 클래스에 통합)
-
-
-뷰:
-
-MainFrame.java
-CustomerPanel.java
-OrderPanel.java
-ProductPanel.java
-SupplierPanel.java
-EmployeePanel.java
-
-컨트롤러:
-
-BookstoreController.java (모든 컨트롤러 로직을 한 클래스에 통합)
-
-
-유틸리티 :
-
-DBConnection.java
-
-
----
-
-
-## DB 연동을 위한 라이브러리 추가:
-Oracle JDBC 드라이버 (예: ojdbc8.jar)
-
----
 ## 기본 기능과 구조
+- controller
+
 각 컨트롤러는 해당 서비스와 패널(뷰)을 가지고 있으며,
 뷰의 이벤트 리스너를 초기화하고 관리합니다.
-실제 비즈니스 로직은 서비스 클래스에서 처리되며, 컨트롤러는 사용자 입력을 받아 서비스 메서드를 호출하고 결과를 뷰에 반영하는 역할을 합니다.
-각 메서드의 구체적인 구현은 실제 비즈니스 로직과 GUI 구현에 따라 달라질 수 있습니다.
-이 기본 구조를 바탕으로 프로젝트의 요구사항에 맞게 확장하고 구체화할 수 있습니다.
+입력을 받고 view에 model데이터를 뿌려줍니다.
 
+인터페이스를 통해 의존성 주입에 용의하게 했습니다.
 
-
-
-
-이렇게 인터페이스로 만들면 몇 가지 장점이 있음
-
-나중에 다른 GUI 라이브러리(예: JavaFX)로 바꾸고 싶으면 새로운 구현 클래스만 만들면 돼.
-테스트하기 쉬워짐. Mock 객체를 만들어서 테스트할 수 있거든.
-의존성 주입을 사용하기 쉬워짐. 인터페이스에 의존하게 되니까.
-
-
-
-
-
-
-메뉴바: 파일 메뉴(로그아웃, 종료)와 도움말 메뉴(프로그램 정보)가 있어.
-동적 탭 관리: 사용자의 권한에 따라 다른 탭을 보여줘. ADMIN은 모든 탭을 볼 수 있고, 일반 사용자는 일부 탭만 볼 수 있어.
-상태바: 현재 선택된 탭 정보와 현재 시간을 보여줘. 시간은 1초마다 업데이트돼.
-윈도우 종료 시 로그아웃 처리: 창을 닫으면 자동으로 로그아웃 돼.
-에러 및 정보 메시지 표시 기능: 다른 클래스에서 에러나 정보를 표시하고 싶을 때 사용할 수 있는 메서드를 제공해.
-
-이 MainFrame은 전체 애플리케이션의 중심 역할을 해. 모든 View들이 이 프레임 내의 탭으로 표시되고, 사용자는 이 프레임을 통해 모든 기능에 접근할 수 있어.
 
 model/
 
@@ -165,39 +68,8 @@ crud든 controller든 view든  interface를 효율적으로 활용하여 개발.
 
 
 
-    ManagementGUIController에 각 모델 컨트롤러의 getter 메서드를 추가했어.
-    SwingManagementGUIController에서 모든 모델 컨트롤러를 초기화하고 관리해.
-    에러 메시지와 정보 메시지를 표시하는 메서드를 추가했어.
-    로그인과 로그아웃 처리를 ManagementGUIController에서 담당하도록 했어.
-    각 모델 컨트롤러(예: UserController)는 비즈니스 로직과 데이터 접근에 집중하도록 수정했어.
-
-    이렇게 하면 GUI 관련 로직은 SwingManagementGUIController에서 관리하고, 각 모델 컨트롤러는 해당 모델의 비즈니스 로직을 처리하게 돼. 이러한 구조로 관심사를 분리하고 코드를 더 모듈화할 수 있어.
-    다른 컨트롤러들(BookController, CustomerController 등)도 비슷한 방식으로 수정하면 돼. 각 컨트롤러는 해당 모델의 CRUD 연산과 관련 비즈니스 로직을 처리하도록 하면 돼.
-
-
-
-
-    실제로 사용하려면 각 View의 private 메서드들(addBook, updateCustomer 등)에 구체적인 로직을 추가해야 해. 예를 들어, addBook 메서드에서는 입력 필드의 값을 가져와서 Book 객체를 만들고, controller.getBookController().addBook(book)을 호출하는 식으로 구현하면 돼.
-    그리고 테이블에 데이터를 표시하는 부분도 구현해야 해. 보통은 DefaultTableModel을 사용해서 테이블 데이터를 관리하고 업데이트하는 게 일반적이야.
-
-
-
-
-
-
-
-joinView
-
-
-
-직원 ID, 이름, 비밀번호, 비밀번호 확인, 전화번호, 직급을 입력.
 비밀번호와 비밀번호 확인이 일치하는지 체크
 가입 버튼을 누르면 입력받은 정보로 User 객체를 만들고 UserController를 통해 저장을 시도.
 가입 성공/실패에 따라 적절한 메시지를 보여주고, 성공하면 close
 취소 버튼을 누르면 그냥 close
 
-
-addButton.addActionListener(e -> addUser());
-updateButton.addActionListener(e -> updateUser());
-deleteButton.addActionListener(e -> deleteUser());
-searchButton.addActionListener(e -> searchUsers());

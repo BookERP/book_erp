@@ -17,16 +17,6 @@ public class Rental {
     private Date rentalDate;
     private Date returnDate;
 
-    // 생성자, getter/setter, toString() 등의 메서드 추가
+    private String bookTitle;// 대여한 책 따로 저장할 변수
 
-
-    // 대여한 책의 제목을 저장할 필드
-    private String bookTitle;
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
 }

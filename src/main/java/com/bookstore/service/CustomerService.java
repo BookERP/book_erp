@@ -45,4 +45,9 @@ public class CustomerService {
         return customerDAO.readAll();
     }
 
+
+    // 고객 이름으로 검색
+    public Customer searchCustomerByName(String customerName) {
+        return customerDAO.read(customerName);
+    }
 }

@@ -14,7 +14,6 @@ public class UserController {
     public void registerUser(User user) {
         userService.registerUser(user);
     }
-
     // 로그인
     public boolean login(String account, String password) {
         return userService.login(account, password);
