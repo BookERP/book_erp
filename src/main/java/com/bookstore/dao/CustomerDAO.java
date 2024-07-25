@@ -21,13 +21,15 @@ public class CustomerDAO {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Customer customer = new Customer();
+//                customer.setCustomerId(rs.getString("CUSTOMERID"));
+//                customer.setCName(rs.getString("CNAME"));
+//                customer.setCPhone(rs.getString("CPHONE"));
+//                customer.setCEmail(rs.getString("CEMAIL"));
+//                customer.setCAddress(rs.getString("CADDRESS"));
+//                customer.setRDate(rs.getDate("RDATE"));
+//                customer.setCpw(rs.getString("CPW"));
                 customer.setCustomerId(rs.getString("CUSTOMERID"));
-                customer.setCName(rs.getString("CNAME"));
-                customer.setCPhone(rs.getString("CPHONE"));
-                customer.setCEmail(rs.getString("CEMAIL"));
-                customer.setCAddress(rs.getString("CADDRESS"));
-                customer.setRDate(rs.getDate("RDATE"));
-                customer.setCpw(rs.getString("CPW"));
+                customer.setCName(rs.getString("NAME"));
                 customers.add(customer);
             }
         } catch (SQLException e) {
@@ -44,13 +46,14 @@ public class CustomerDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 customer = new Customer();
-                customer.setCustomerId(rs.getString("CUSTOMERID"));
-                customer.setCName(rs.getString("CNAME"));
-                customer.setCPhone(rs.getString("CPHONE"));
-                customer.setCEmail(rs.getString("CEMAIL"));
-                customer.setCAddress(rs.getString("CADDRESS"));
-                customer.setRDate(rs.getDate("RDATE"));
-                customer.setCpw(rs.getString("CPW"));
+//                customer.setCustomerId(rs.getString("CUSTOMERID"));
+//                customer.setCName(rs.getString("CNAME"));
+//                customer.setCPhone(rs.getString("CPHONE"));
+//                customer.setCEmail(rs.getString("CEMAIL"));
+//                customer.setCAddress(rs.getString("CADDRESS"));
+//                customer.setRDate(rs.getDate("RDATE"));
+//                customer.setCpw(rs.getString("CPW"));
+                customer.setCName(rs.getString("NAME"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

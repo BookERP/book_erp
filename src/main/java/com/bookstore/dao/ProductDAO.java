@@ -17,18 +17,22 @@ public class ProductDAO {
 	
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM PRODUCT";
+//        String query = "SELECT * FROM PRODUCT";
+        String query = "SELECT * FROM BOOK";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getString("PRODUCTID"));
-                product.setSupplierId(rs.getString("SID"));
-                product.setName(rs.getString("PNAME"));
-                product.setAuthor(rs.getString("AUTHOR"));
-                product.setPublisher(rs.getString("PUBLISHER"));
+//                product.setProductId(rs.getString("PRODUCTID"));
+//                product.setSupplierId(rs.getString("SID"));
+//                product.setName(rs.getString("PNAME"));
+//                product.setAuthor(rs.getString("AUTHOR"));
+//                product.setPublisher(rs.getString("PUBLISHER"));
+//                product.setPrice(rs.getDouble("PRICE"));
+//                product.setCategory(rs.getString("CATEGORY"));
+                product.setProductId(rs.getString("BOOKID"));
+                product.setName(rs.getString("NAME"));
                 product.setPrice(rs.getDouble("PRICE"));
-                product.setCategory(rs.getString("CATEGORY"));
                 products.add(product);
             }
         } catch (SQLException e) {
@@ -38,7 +42,8 @@ public class ProductDAO {
     }
     
     public String getNextProductId() {
-        String query = "SELECT MAX(PRODUCTID) AS MAX_ID FROM PRODUCT";
+//        String query = "SELECT MAX(PRODUCTID) AS MAX_ID FROM PRODUCT";
+        String query = "SELECT MAX(BOOKID) AS MAX_ID FROM BOOK";
         try(
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -58,19 +63,23 @@ public class ProductDAO {
     
     public Product getProductById(String productId) {
         Product product = null;
-        String query = "SELECT * FROM PRODUCT WHERE PRODUCTID = ?";
+//        String query = "SELECT * FROM PRODUCT WHERE PRODUCTID = ?";
+        String query = "SELECT * FROM BOOK WHERE BOOKID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, productId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 product = new Product();
-                product.setProductId(rs.getString("PRODUCTID"));
-                product.setSupplierId(rs.getString("SID"));
-                product.setName(rs.getString("PNAME"));
-                product.setAuthor(rs.getString("AUTHOR"));
-                product.setPublisher(rs.getString("PUBLISHER"));
+//                product.setProductId(rs.getString("PRODUCTID"));
+//                product.setSupplierId(rs.getString("SID"));
+//                product.setName(rs.getString("PNAME"));
+//                product.setAuthor(rs.getString("AUTHOR"));
+//                product.setPublisher(rs.getString("PUBLISHER"));
+//                product.setPrice(rs.getDouble("PRICE"));
+//                product.setCategory(rs.getString("CATEGORY"));
+                product.setProductId(rs.getString("BOOKID"));
+                product.setName(rs.getString("NAME"));
                 product.setPrice(rs.getDouble("PRICE"));
-                product.setCategory(rs.getString("CATEGORY"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
