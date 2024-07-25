@@ -1,86 +1,95 @@
 package main.java.com.bookstore.dao;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import main.java.com.bookstore.model.Customer;
 import main.java.com.bookstore.util.ConnectionHelper;
 
-public class CustomerDAO {
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+// dao/CustomerDAO.java
+public class CustomerDAO implements Crud<Customer> {
     private Connection conn;
 
     public CustomerDAO() {
         conn = ConnectionHelper.getConnection();
     }
 
-    public List<Customer> getAllCustomers() {
+    @Override
+    public void create(Customer customer) {
+        String sql = "INSERT INTO customer (name, phone) VALUES (?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, customer.getName());
+            pstmt.setString(2, customer.getPhone());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Customer read(String customerId) {
+        String sql = "SELECT * FROM customer WHERE customer_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, customerId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerId(rs.getString("customer_id"));
+                customer.setName(rs.getString("name"));
+                customer.setPhone(rs.getString("phone"));
+                return customer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void update(Customer customer) {
+        String sql = "UPDATE customer SET name = ?, phone = ? WHERE customer_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, customer.getName());
+            pstmt.setString(2, customer.getPhone());
+            pstmt.setString(3, customer.getCustomerId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(String customerId) {
+        String sql = "DELETE FROM customer WHERE customer_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, customerId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Customer> readAll() {
+        String sql = "SELECT * FROM customer";
         List<Customer> customers = new ArrayList<>();
-        String query = "SELECT * FROM CUSTOMER";
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerId(rs.getString("CUSTOMERID"));
-                customer.setCName(rs.getString("CNAME"));
-                customer.setCPhone(rs.getString("CPHONE"));
-                customer.setCEmail(rs.getString("CEMAIL"));
-                customer.setCAddress(rs.getString("CADDRESS"));
-                customer.setRDate(rs.getDate("RDATE"));
-                customer.setCpw(rs.getString("CPW"));
+                customer.setCustomerId(rs.getString("customer_id"));
+                customer.setName(rs.getString("name"));
+                customer.setPhone(rs.getString("phone"));
                 customers.add(customer);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return customers;
-    }
-
-    public Customer getCustomerByID(String customerId) {
-        Customer customer = null;
-        String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, customerId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                customer = new Customer();
-                customer.setCustomerId(rs.getString("CUSTOMERID"));
-                customer.setCName(rs.getString("CNAME"));
-                customer.setCPhone(rs.getString("CPHONE"));
-                customer.setCEmail(rs.getString("CEMAIL"));
-                customer.setCAddress(rs.getString("CADDRESS"));
-                customer.setRDate(rs.getDate("RDATE"));
-                customer.setCpw(rs.getString("CPW"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return customer;
-    }
-
-    public void updateCustomer(Customer customer) {
-        String query = "UPDATE CUSTOMER SET CUSTOMERID = ?, CNAME = ?, CPHONE = ?, CEMAIL = ?, CADDRESS = ?, CPW = ? WHERE CUSTOMERID = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, customer.getCustomerId());
-            pstmt.setString(2, customer.getCName());
-            pstmt.setString(3, customer.getCPhone());
-            pstmt.setString(4, customer.getCEmail());
-            pstmt.setString(5, customer.getCAddress());
-            pstmt.setString(6, customer.getCpw());
-            pstmt.setString(7, customer.getCustomerId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteCustomer(String customerId) {
-        String query = "DELETE FROM CUSTOMER WHERE CUSTOMERID = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, customerId);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

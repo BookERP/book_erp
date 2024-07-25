@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionHelper {
     private static Connection connection;
 
-    private ConnectionHelper() {
+    public ConnectionHelper() {
         // Private constructor to prevent instantiation
     }
 

@@ -4,9 +4,8 @@
 
 # Eclipse
 .project
-.classpath
-.settings/
 
+utill/
 # OS 파일
 *.DS_Store
 Thumbs.db
