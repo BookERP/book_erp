@@ -31,10 +31,12 @@ public class CustomerPanel extends JFrame {
         // 버튼 패널
         JPanel buttonPanel = new JPanel();
         JButton btnLoad = new JButton("전체보기");
+        JButton btnAdd = new JButton("추가");
         JButton btnSearch = new JButton("검색");
         JButton btnUpdate = new JButton("수정");
         JButton btnDelete = new JButton("삭제");
 
+        buttonPanel.add(btnAdd);
         buttonPanel.add(btnLoad);
         buttonPanel.add(btnSearch);
         buttonPanel.add(btnUpdate);
@@ -48,7 +50,7 @@ public class CustomerPanel extends JFrame {
         JScrollPane scrollPane = new JScrollPane(customerTable);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // 버튼에 대한 이벤트 리스너 등록
+        //전체 보기
         btnLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +58,14 @@ public class CustomerPanel extends JFrame {
             }
         });
 
+        //추가하기
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addCustomer();
+            }
+        });
+        //검새ㅔㄱ하기
         btnSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,6 +73,7 @@ public class CustomerPanel extends JFrame {
             }
         });
 
+        //업데이트
         btnUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,6 +81,7 @@ public class CustomerPanel extends JFrame {
             }
         });
 
+        //삯제ㅣ
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +112,7 @@ public class CustomerPanel extends JFrame {
             tableModel.addRow(rowData);
         }
     }
+
 
     // 고객 검색 기능 구현 (아이디로 검색)
     private void searchCustomer() {
@@ -170,6 +183,48 @@ public class CustomerPanel extends JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "고객 ID를 입력하세요.");
+        }
+    }
+
+    private void addCustomer() {
+        // 고객 정보 입력 받기
+        JTextField txtId = new JTextField();
+        JTextField txtName = new JTextField();
+        JTextField txtPhone = new JTextField();
+        JTextField txtEmail = new JTextField();
+        JTextField txtAddress = new JTextField();
+        JTextField txtPassword = new JTextField();
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("고객 ID:"));
+        panel.add(txtId);
+        panel.add(new JLabel("이름:"));
+        panel.add(txtName);
+        panel.add(new JLabel("전화번호:"));
+        panel.add(txtPhone);
+        panel.add(new JLabel("이메일:"));
+        panel.add(txtEmail);
+        panel.add(new JLabel("주소:"));
+        panel.add(txtAddress);
+        panel.add(new JLabel("비밀번호:"));
+        panel.add(txtPassword);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "새 고객 추가",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            // 사용자가 OK를 클릭했을 때, 새 고객 정보 추가
+            Customer newCustomer = new Customer();
+            newCustomer.setCustomerId(txtId.getText());
+            newCustomer.setCName(txtName.getText());
+            newCustomer.setCPhone(txtPhone.getText());
+            newCustomer.setCEmail(txtEmail.getText());
+            newCustomer.setCAddress(txtAddress.getText());
+            newCustomer.setCpw(txtPassword.getText());
+
+            // 만약 없다면 CustomerDAO 클래스에 추가해야 합니다.
+            customerDAO.addCustomer(newCustomer);
+            loadCustomers(); // 추가 후 고객 정보 다시 로드
+            JOptionPane.showMessageDialog(this, "새 고객이 추가되었습니다.");
         }
     }
 

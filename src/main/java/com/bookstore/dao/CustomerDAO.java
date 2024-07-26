@@ -36,6 +36,41 @@ public class CustomerDAO {
         return customers;
     }
 
+    public Customer addCustomerByID(String customerId) {
+        Customer customer = null;
+        String query = "INSERT INTO PRODUCT (CUSTOMERID =? , CNAME = ? , PHONE = ?, EMAIL = ?, CADDRESS = ? ,DATE=? , CCPW =?,  ) ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, customer.getCustomerId());
+            pstmt.setString(2, customer.getCName());
+            pstmt.setString(3, customer.getCPhone());
+            pstmt.setString(4, customer.getCEmail());
+            pstmt.setString(5, customer.getCAddress());
+            pstmt.setString(6, customer.getCpw());
+            pstmt.setString(7, customer.getCustomerId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customer;
+
+    }
+
+    public void addCustomer(Customer customer) {
+        String query = "INSERT INTO CUSTOMER (CUSTOMERID, CNAME, CPHONE, CEMAIL, CADDRESS, RDATE, CPW) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, customer.getCustomerId());
+            pstmt.setString(2, customer.getCName());
+            pstmt.setString(3, customer.getCPhone());
+            pstmt.setString(4, customer.getCEmail());
+            pstmt.setString(5, customer.getCAddress());
+            pstmt.setDate(6, new java.sql.Date(System.currentTimeMillis())); // 현재 날짜를 등록일로 사용
+            pstmt.setString(7, customer.getCpw());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public Customer getCustomerByID(String customerId) {
         Customer customer = null;
         String query = "SELECT * FROM CUSTOMER WHERE CUSTOMERID = ?";
