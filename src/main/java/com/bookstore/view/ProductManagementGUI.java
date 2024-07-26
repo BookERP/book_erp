@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProductManagementGUI extends JFrame {
     private JTextField txtSearchProductId, txtName, txtAuthor, txtPublisher, txtPrice, txtStockQuantity, txtCategory;
-    private JComboBox<String> comboSupplierId;
+    private JComboBox<String> comboSupplierName;
     private JTable productTable;
     private DefaultTableModel tableModel;
     private ProductDAO productDAO;
@@ -30,10 +30,10 @@ public class ProductManagementGUI extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel inputPanel = new JPanel(new GridLayout(8, 2)); // Removed txtProductId from layout
-        inputPanel.add(new JLabel("공급체 고유번호:"));
-        comboSupplierId = new JComboBox<>();
-        inputPanel.add(comboSupplierId);
-        supplierDAO.loadSuppliers(comboSupplierId);
+        inputPanel.add(new JLabel("공급체 이름:"));
+        comboSupplierName = new JComboBox<>();
+        inputPanel.add(comboSupplierName);
+        supplierDAO.loadSuppliers(comboSupplierName);
 
         inputPanel.add(new JLabel("도서명:"));
         txtName = new JTextField();
@@ -61,7 +61,7 @@ public class ProductManagementGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        tableModel = new DefaultTableModel(new String[]{"상품 고유번호", "공급체 고유번호", "도서명", "저자", "출판사", "가격", "재고 수", "카테고리"}, 0);
+        tableModel = new DefaultTableModel(new String[]{"상품 고유번호", "공급체 고유번호", "공급체 이름", "도서명", "저자", "출판사", "가격", "재고 수", "카테고리"}, 0);
         productTable = new JTable(tableModel);
         add(new JScrollPane(productTable), BorderLayout.CENTER);
 
@@ -79,7 +79,7 @@ public class ProductManagementGUI extends JFrame {
         buttonPanel.add(btnSelectAll);
 
         add(buttonPanel, BorderLayout.SOUTH);
-        
+
         btnSelectAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,16 +119,19 @@ public class ProductManagementGUI extends JFrame {
     }
 
     private void loadSuppliers() {
-        supplierDAO.loadSuppliers(comboSupplierId);
+        supplierDAO.loadSuppliers(comboSupplierName);
     }
 
     private void loadProducts() {
         List<Product> products = productDAO.getAllProducts();
         tableModel.setRowCount(0); // Clear existing data
         for (Product product : products) {
+            Supplier supplier = supplierDAO.getSupplierById(product.getSID());
+            String supplierName = (supplier != null) ? supplier.getName() : "Unknown";
             tableModel.addRow(new Object[]{
                 product.getProductId(),
                 product.getSID(),
+                supplierName,
                 product.getPname(),
                 product.getAuthor(),
                 product.getPublisher(),
@@ -171,9 +174,15 @@ public class ProductManagementGUI extends JFrame {
             return;
         }
 
+        Supplier supplier = supplierDAO.getSupplierByName((String) comboSupplierName.getSelectedItem());
+        if (supplier == null) {
+            JOptionPane.showMessageDialog(this, "존재하지 않는 공급체입니다.");
+            return;
+        }
+
         Product product = new Product();
         product.setProductId(productDAO.getNextProductId()); // Automatically generate product ID
-        product.setSID((String) comboSupplierId.getSelectedItem());
+        product.setSID(supplier.getSupplierId());
         product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
@@ -221,10 +230,16 @@ public class ProductManagementGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "카테고리를 입력하세요.");
             return;
         }
-        
+
+        Supplier supplier = supplierDAO.getSupplierByName((String) comboSupplierName.getSelectedItem());
+        if (supplier == null) {
+            JOptionPane.showMessageDialog(this, "존재하지 않는 공급체입니다.");
+            return;
+        }
+
         Product product = new Product();
         product.setProductId(productId);
-        product.setSID((String) comboSupplierId.getSelectedItem());
+        product.setSID(supplier.getSupplierId());
         product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
@@ -260,10 +275,13 @@ public class ProductManagementGUI extends JFrame {
         }
         Product product = productDAO.getProductById(productId);
         if (product != null) {
+            Supplier supplier = supplierDAO.getSupplierById(product.getSID());
+            String supplierName = (supplier != null) ? supplier.getName() : "Unknown";
             tableModel.setRowCount(0); // Clear existing data
             tableModel.addRow(new Object[]{
                 product.getProductId(),
                 product.getSID(),
+                supplierName,
                 product.getPname(),
                 product.getAuthor(),
                 product.getPublisher(),

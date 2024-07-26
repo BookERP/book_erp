@@ -24,7 +24,8 @@ public class MainFrame extends JFrame {
 
         JMenuItem productManagement = new JMenuItem("상품관리");
         JMenuItem customerManagement = new JMenuItem("고객관리");
-        JMenuItem hrManagement = new JMenuItem("인사관리");
+        JMenuItem orderManagement = new JMenuItem("주문관리");
+        JMenuItem supplierManagement = new JMenuItem("공급업체 관리");
         JMenuItem exitItem = new JMenuItem("프로그램 종료");
         JMenuItem logout = new JMenuItem("로그아웃");
         JMenuItem myPage = new JMenuItem("회원정보");
@@ -33,7 +34,8 @@ public class MainFrame extends JFrame {
         management.add(productManagement);
         management.add(inventory);
         management.add(customerManagement);
-        management.add(hrManagement);
+        management.add(orderManagement);
+        management.add(supplierManagement);
         
         usermanagement.add(myPage);
         usermanagement.add(logout);
@@ -45,6 +47,22 @@ public class MainFrame extends JFrame {
 
         setJMenuBar(jMenuBar);
         
+        
+        //공급업체관리
+        supplierManagement.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new SupplierManagementGUI().setVisible(true);
+        	}
+        });
+        
+        //주문관리
+        orderManagement.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new OrderPanel().setVisible(true);
+        	}
+        });
+        
+        //고객관리
         customerManagement.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {

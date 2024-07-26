@@ -58,5 +58,4 @@ public class Employee {
 		return "Employee [EMPLOYEEID=" + EMPLOYEEID + ", NAME=" + NAME + ", password=" + password + ", Position="
 				+ Position + ", Phone=" + Phone + ", Email=" + Email + ", HireDate=" + HireDate + "]";
 	}
-	
 }

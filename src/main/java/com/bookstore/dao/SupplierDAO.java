@@ -40,6 +40,45 @@ public class SupplierDAO {
         return suppliers;
     }
 
+    public Supplier getSupplierById(String supplierId) {
+        Supplier supplier = null;
+        String query = "SELECT SUPPLIERID, SNAME, SPHONE, SEMAIL, SADDRESS FROM SUPPLIER WHERE SUPPLIERID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, supplierId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    supplier = new Supplier();
+                    supplier.setSupplierId(rs.getString("SUPPLIERID"));
+                    supplier.setName(rs.getString("SNAME"));
+                    supplier.setPhone(rs.getString("SPHONE"));
+                    supplier.setEmail(rs.getString("SEMAIL"));
+                    supplier.setAddress(rs.getString("SADDRESS"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return supplier;
+    }
+
+    public Supplier getSupplierByName(String name) {
+        Supplier supplier = null;
+        String query = "SELECT SUPPLIERID, SNAME FROM SUPPLIER WHERE SNAME = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, name);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    supplier = new Supplier();
+                    supplier.setSupplierId(rs.getString("SUPPLIERID"));
+                    supplier.setName(rs.getString("SNAME"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return supplier;
+    }
+
     public void loadSuppliers(final JComboBox<String> comboBox) {
         SwingWorker<List<Supplier>, Void> worker = new SwingWorker<List<Supplier>, Void>() {
             @Override
@@ -53,7 +92,7 @@ public class SupplierDAO {
                     List<Supplier> suppliers = get();
                     comboBox.removeAllItems();
                     for (Supplier supplier : suppliers) {
-                        comboBox.addItem(supplier.getSupplierId());
+                        comboBox.addItem(supplier.getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -103,8 +142,7 @@ public class SupplierDAO {
 
     public String getNextSupplierId() {
         String query = "SELECT MAX(SUPPLIERID) AS MAX_ID FROM SUPPLIER";
-        try (Connection conn = ConnectionHelper.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
+        try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String maxId = rs.getString("MAX_ID");
