@@ -11,7 +11,6 @@ import java.util.List;
 
 import src.main.java.com.bookstore.model.Customer;
 import src.main.java.com.bookstore.model.Order;
-import src.main.java.com.bookstore.model.Product;
 import src.main.java.com.bookstore.util.ConnectionHelper;
 
 public class OrderDAO {
@@ -72,12 +71,6 @@ public class OrderDAO {
 	        if (existingCustomer == null) {
 	            throw new SQLException("Customer not found");
 	        }
-	        
-	        String bookID = newOrder.getProductId();
-	        Product existingProduct = getProductByID(bookID);
-	        if(existingProduct == null) {
-	        	throw new SQLException("Book Nor Found");
-	        }
 
 	        // Order 테이블에 데이터 삽입
 	        orderPst.setString(1, newOrder.getOrderID());
@@ -104,25 +97,6 @@ public class OrderDAO {
 	    }
 	}
 	
-	private Product getProductByID(String bookID) {
-		String query = "SELECT * FROM BOOK WHERE BOOKID = ?";
-		try (PreparedStatement pst = conn.prepareStatement(query)){
-			pst.setString(1, bookID);
-			try (ResultSet rs = pst.executeQuery()) {
-				if(rs.next()) {
-					Product product = new Product();
-					product.setProductId(rs.getString("BOOKID"));
-					product.setName(rs.getString("NAME"));
-					product.setPrice(rs.getDouble("PRICE"));
-					return product;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	private Customer getCustomerByID(String customerID) {
 	    String query = "SELECT * FROM \"CUSTOMER\" WHERE CUSTOMERID = ?";
 	    try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -131,7 +105,8 @@ public class OrderDAO {
 	            if (rs.next()) {
 	                Customer customer = new Customer();
 	                customer.setCustomerId(rs.getString("CUSTOMERID"));
-	                customer.setCName(rs.getString("NAME"));
+	                customer.setCName(rs.getString("CNAME"));
+	                customer.setCAddress(rs.getString("CADDRESS"));
 	                return customer;
 	            }
 	        }
@@ -143,8 +118,7 @@ public class OrderDAO {
 
 	public List<Order> getAllOrders() {
 		List<Order> orders = new ArrayList<>();
-	    String query = "SELECT o.ORDERID, o.ORDERDATE, o.SHIPPINGDATE, o.STATUS, " +
-	    				" c.CUSTOMERID, c.NAME " +
+	    String query = "SELECT o.ORDERID, o.ORDERDATE, o.SHIPPINGDATE, o.STATUS, c.CUSTOMERID, c.CNAME, c.CADDRESS " +
 	                   "FROM \"ORDER\" o " +
 	                   "JOIN \"CUSTOMER\" c ON o.CID = c.CUSTOMERID";
 	    try (Statement stmt = conn.createStatement();
@@ -156,8 +130,8 @@ public class OrderDAO {
 	               order.setShippingDate(rs.getDate("SHIPPINGDATE"));
 	               order.setStatus(rs.getString("STATUS"));
 	               order.setCustomerId(rs.getString("CUSTOMERID"));
-	               order.setCustomerName(rs.getString("NAME"));
-	               
+	               order.setCustomerName(rs.getString("CNAME"));
+	               order.setCustomerAddress(rs.getString("CADDRESS"));
 	               orders.add(order);
 	           }
 	       } catch (Exception e) {
