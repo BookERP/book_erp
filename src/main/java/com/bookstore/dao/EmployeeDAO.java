@@ -21,16 +21,23 @@ public class EmployeeDAO {
 
 	public List<Employee> getEmployees() {
 		List<Employee> employees = new ArrayList<>();
-		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE FROM Employee";
+//		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, EMAIL, HIREDATE FROM Employee";
+		String query = "SELECT EMPLOYEEID, NAME, POSITION, PHONE, HIREDATE FROM Employee";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				Employee employee = new Employee();
+//				employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
+//				employee.setNAME(rs.getString("EMPLOYEEID"));
+//				employee.setPosition(rs.getString("POSITION"));
+//				employee.setPhone(rs.getString("PHONE"));
+//				employee.setEmail(rs.getString("EMAIL"));
+//				employee.setHireDate(rs.getDate("HIREDATE"));
 				employee.setEMPLOYEEID(rs.getString("EMPLOYEEID"));
 				employee.setNAME(rs.getString("EMPLOYEEID"));
 				employee.setPosition(rs.getString("POSITION"));
 				employee.setPhone(rs.getString("PHONE"));
-				employee.setEmail(rs.getString("EMAIL"));
+//				employee.setEmail(rs.getString("EMAIL"));
 				employee.setHireDate(rs.getDate("HIREDATE"));
 				employees.add(employee);
 			}

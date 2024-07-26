@@ -176,7 +176,8 @@ public class LoginService extends JFrame {
     private void loginUser(String username, String password) {
         try {
             Connection conn = ConnectionHelper.getConnection();
-            String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
+//            String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND EPW = ?";
+            String query = "SELECT * FROM EMPLOYEE WHERE EMPLOYEEID = ? AND PASSWORD = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
