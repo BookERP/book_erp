@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class CustomerView extends JFrame {
+public class CustomerView extends JPanel {
     private CustomerController customerController;
     private JTable customerTable;
     private JTextField searchField;
@@ -19,12 +19,13 @@ public class CustomerView extends JFrame {
     private JButton updateButton;
     private JButton deleteButton;
     public CustomerView() {
+        initComponents();
+    }
+
+    private void initComponents() {
         customerController = new CustomerController();
 
-        setTitle("고객 관리");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 400);
-        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -40,9 +41,9 @@ public class CustomerView extends JFrame {
         // 고객 목록 테이블
         String[] columnNames = {"고객 ID", "이름", "전화번호", "대여 정보", "구매 정보"};
         Object[][] data = {
-                {"1", "홍길동", "010-1234-5678"},
-                {"2", "김철수", "010-2345-6789"},
-                {"3", "이영희", "010-3456-7890"}
+                {"1", "ㄱ호객", "010-1234-5678"},
+                {"2", "고객", "010-2345-6789"},
+                {"3", "고객3", "010-3456-7890"}
         };
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         customerTable = new JTable(model);

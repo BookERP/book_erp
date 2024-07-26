@@ -15,5 +15,5 @@ public class Customer {
 	private String name;
 	private String phone;
 
-	private String customerName;
+//	private String customerName;
 }

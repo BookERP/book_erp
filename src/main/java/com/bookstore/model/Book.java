@@ -14,10 +14,10 @@ public class Book {
     private String bookId;
     private String isbn;
     private String author;
+    private String title;
     private String publisher;
     private String publishDate;
     private double price;
     private String category;
     private String current;
-    private String title;
 }

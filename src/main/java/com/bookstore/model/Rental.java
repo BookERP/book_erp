@@ -17,6 +17,6 @@ public class Rental {
     private Date rentalDate;
     private Date returnDate;
 
-    private String bookTitle;// 대여한 책 따로 저장할 변수
+    private String bookTitle;// 대여한 책 따로 저장할 변수. DB에는 따로 생성 안함.
 
 }

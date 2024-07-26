@@ -16,6 +16,7 @@ public class Purchase {
     private String customerId;
     private Date purchaseDate;
 
-    private String bookTitle; // 구매한 책 제목 여따 박음
+    private String bookTitle; // 구매한 책 제목 여따 박음 DB에는 따로 생성 안함.
+
 
 }

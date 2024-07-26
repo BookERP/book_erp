@@ -14,11 +14,11 @@ public class UserService {
     public void registerUser(User user) {
         // 사용자 정보 유효성 검사
         if (user.getAccount().isEmpty() || user.getPw().isEmpty()) {
-            throw new IllegalArgumentException("사용자 정보가 유효하지 않습니다.");
+            throw new IllegalArgumentException("빈칸 다 입력하세요");
         }
-        // 비밀번호 일치 여부 검사
+//         비밀번호 일치 여부 검사
         if (!user.getPw().equals(user.getCpw())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비번 불일치");
         }
         userDAO.create(user);
     }
@@ -41,7 +41,7 @@ public class UserService {
         userDAO.update(user);
     }
 
-    // 사용자 탈퇴
+    // 계정 삭제
     public void deleteUser(String userId) {
         userDAO.delete(userId);
     }

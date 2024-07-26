@@ -27,7 +27,7 @@ public class LoginFrame extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // 로고 (가정)
+        // 로고 라벨
         JLabel logoLabel = new JLabel("도서관 로그인", SwingConstants.CENTER);
         logoLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -64,23 +64,25 @@ public class LoginFrame extends JFrame {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        // 액션 리스너 등록
+        // 로그인 버튼
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loginUser();
+//                loginUser();
+                dispose();
+                new MainFrame();
             }
         });
+        setVisible(true);
+        // 회원가입 버튼
         joinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new JoinFrame();
             }
         });
         setVisible(true);
     }
-
-
 
     private void styleButton(JButton button) {
         button.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
@@ -91,18 +93,18 @@ public class LoginFrame extends JFrame {
         button.setPreferredSize(new Dimension(120, 30));
     }
 
+    //로그인페이지 로 이동하기.
     private void loginUser() {
         String account = accountField.getText();
         String password = new String(passwordField.getPassword());
-
         boolean success = userController.login(account, password);
         if (success) {
-            JOptionPane.showMessageDialog(this, "로그인 성공!");
+            JOptionPane.showMessageDialog(this, "로그인 성공");
             dispose(); // 로그인 성공 후 창 닫고
             //메인프레임생성과 함께 account 전달
-            SwingUtilities.invokeLater(() -> new MainFrame(account));
+            SwingUtilities.invokeLater(MainFrame::new);
         } else {
-            JOptionPane.showMessageDialog(this, "로그인 실패. 계정과 비밀번호를 확인해주세요.");
+            JOptionPane.showMessageDialog(this, "로그인 실패.");
         }
 
         joinButton.addActionListener(new ActionListener() {

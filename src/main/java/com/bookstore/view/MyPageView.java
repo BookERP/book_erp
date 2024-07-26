@@ -5,16 +5,17 @@ import main.java.com.bookstore.controller.UserController;
 import javax.swing.*;
 import java.awt.*;
 
-public class MyPageView extends JFrame {
+public class MyPageView extends JPanel {
     private UserController userController;
 
     public MyPageView() {
+        initComponents();
+    }
+
+    private void initComponents() {
         userController = new UserController();
 
-        setTitle("내 정보");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 300);
-        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2));

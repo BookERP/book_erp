@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class BookView extends JFrame {
+public class BookView extends JPanel {
     private BookController bookController;
     private JTable bookTable;
     private JTextField searchField;
@@ -20,12 +20,14 @@ public class BookView extends JFrame {
     private JButton deleteButton;
 
     public BookView() {
+        initComponents();
+        }
+
+    private void initComponents() {
+
         bookController = new BookController();
 
-        setTitle("도서 관리");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
-        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
