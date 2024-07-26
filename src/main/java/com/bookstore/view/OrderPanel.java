@@ -31,12 +31,11 @@ import src.main.java.com.bookstore.dao.PaymentDAO;
 import src.main.java.com.bookstore.dao.ProductDAO;
 import src.main.java.com.bookstore.model.Customer;
 import src.main.java.com.bookstore.model.Order;
-import src.main.java.com.bookstore.model.Payment;
 import src.main.java.com.bookstore.model.Product;
 import src.main.java.com.bookstore.util.TableModelUtil;
 
 public class OrderPanel extends JFrame {
-	private JComboBox<String> comboStatus, comboCustomerId, comboBookId, comboPaymentMethod;
+	private JComboBox<String> comboCustomerId, comboBookId;
 	private JTextField txtstatus, txtCustomerName, txtAddress, txtBookName, txtPrice;
 	private JTable orderTable, productTable, combinedTable;
 	private DefaultTableModel orderTableModel, productTableModel, combinedTableModel;
@@ -48,7 +47,6 @@ public class OrderPanel extends JFrame {
 	public OrderPanel() {
 		customerDAO = new CustomerDAO();
 		orderDAO = new OrderDAO();
-//        paymentDAO = new PaymentDAO();
 		productDAO = new ProductDAO();
 		setTitle("주문 관리");
 		setSize(800, 600);
