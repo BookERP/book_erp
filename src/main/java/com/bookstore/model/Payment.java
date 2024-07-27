@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.model;
+package main.java.com.bookstore.model;
 
 public class Payment {
     private String paymentId;

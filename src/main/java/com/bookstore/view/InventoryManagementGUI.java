@@ -1,9 +1,9 @@
-package src.main.java.com.bookstore.view;
+package main.java.com.bookstore.view;
 
-import src.main.java.com.bookstore.dao.InventoryDAO;
-import src.main.java.com.bookstore.dao.ProductDAO;
-import src.main.java.com.bookstore.model.Inventory;
-import src.main.java.com.bookstore.model.Product;
+import main.java.com.bookstore.dao.InventoryDAO;
+import main.java.com.bookstore.dao.ProductDAO;
+import main.java.com.bookstore.model.Inventory;
+import main.java.com.bookstore.model.Product;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

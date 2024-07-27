@@ -1,7 +1,7 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.dao;
 
-import src.main.java.com.bookstore.model.Supplier;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.model.Supplier;
+import main.java.com.bookstore.util.ConnectionHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

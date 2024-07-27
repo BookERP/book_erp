@@ -1,11 +1,11 @@
-package src.main.java.com.bookstore.view;
+package main.java.com.bookstore.view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import src.main.java.com.bookstore.dao.CustomerDAO;
-import src.main.java.com.bookstore.model.Customer;
+import main.java.com.bookstore.dao.CustomerDAO;
+import main.java.com.bookstore.model.Customer;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

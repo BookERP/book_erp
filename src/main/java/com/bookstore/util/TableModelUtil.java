@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.util;
+package main.java.com.bookstore.util;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;

@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.view;
+package main.java.com.bookstore.view;
 
 import javax.swing.*;
 import java.awt.*;

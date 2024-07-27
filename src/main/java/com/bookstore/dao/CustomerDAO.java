@@ -1,11 +1,11 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.com.bookstore.model.Customer;
-import src.main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.model.Customer;
+import main.java.com.bookstore.util.ConnectionHelper;
 
 public class CustomerDAO {
     private Connection conn;

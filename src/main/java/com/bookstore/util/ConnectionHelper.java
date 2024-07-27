@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.util;
+package main.java.com.bookstore.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +16,7 @@ public class ConnectionHelper {
             synchronized (ConnectionHelper.class) {
                 if (connection == null) {
                     try {
-                        String url = "jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=C:/Users/user/Desktop/Wallet_BookERPMSA";
+                        String url = "jdbc:oracle:thin:@bookerpmsa_high?TNS_ADMIN=/Users/test/Desktop/Wallet_BookERPMSA";
                         String user = "ADMIN";
                         String password = "Madwolves9810!";
                         connection = DriverManager.getConnection(url, user, password);
