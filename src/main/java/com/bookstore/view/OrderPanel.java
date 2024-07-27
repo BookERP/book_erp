@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.view;
+package main.java.com.bookstore.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,14 +25,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import src.main.java.com.bookstore.dao.CustomerDAO;
-import src.main.java.com.bookstore.dao.OrderDAO;
-import src.main.java.com.bookstore.dao.PaymentDAO;
-import src.main.java.com.bookstore.dao.ProductDAO;
-import src.main.java.com.bookstore.model.Customer;
-import src.main.java.com.bookstore.model.Order;
-import src.main.java.com.bookstore.model.Product;
-import src.main.java.com.bookstore.util.TableModelUtil;
+import main.java.com.bookstore.dao.CustomerDAO;
+import main.java.com.bookstore.dao.OrderDAO;
+import main.java.com.bookstore.dao.PaymentDAO;
+import main.java.com.bookstore.dao.ProductDAO;
+import main.java.com.bookstore.model.Customer;
+import main.java.com.bookstore.model.Order;
+import main.java.com.bookstore.model.Product;
+import main.java.com.bookstore.util.TableModelUtil;
 
 public class OrderPanel extends JFrame {
 	private JComboBox<String> comboCustomerId, comboBookId;
@@ -104,10 +104,10 @@ public class OrderPanel extends JFrame {
 
 		add(inputPanel, BorderLayout.NORTH);
 
-		orderTableModel = new DefaultTableModel(new String[] { "주문번호", "주문일", "배송일", "상태", "고객번호", "이름", "주소", "제품번호" }, 0);
+//		orderTableModel = new DefaultTableModel(new String[] { "주문번호", "주문일", "배송일", "상태", "고객번호", "이름", "주소", "제품번호" }, 0);
 //		orderTable = new JTable(orderTableModel);
 //        add(new JScrollPane(orderTable), BorderLayout.WEST);
-		productTableModel = new DefaultTableModel(new String[] { "제품번호", "도서명", "가격" }, 0);
+//		productTableModel = new DefaultTableModel(new String[] { "제품번호", "도서명", "가격" }, 0);
 //		productTable = new JTable(productTableModel);
 //        add(new JScrollPane(productTable), BorderLayout.EAST);
 		combinedTableModel = new DefaultTableModel(
@@ -135,7 +135,7 @@ public class OrderPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 //				loadCombinedData();
 				loadOrders();
-                loadProducts();
+//                loadProducts();
                 combineTables();
 			}
 		});
@@ -162,8 +162,8 @@ public class OrderPanel extends JFrame {
 		});
 
         loadOrders();
-        loadProducts();
-        combineTables();
+//        loadProducts();
+//        combineTables();
 //		loadCombinedData();
 	}
 
@@ -319,18 +319,18 @@ public class OrderPanel extends JFrame {
 
 	    orderDAO.addOrder(newOrder);
 	    loadOrders();
-	    loadProducts();
-	    combineTables();
+//	    loadProducts();
+//	    combineTables();
 
 	    JOptionPane.showMessageDialog(this, "주문이 성공적으로 추가되었습니다.");
 	}
 
 	private void loadOrders() {
 		List<Order> orders = orderDAO.getAllOrders();
-	    orderTableModel.setRowCount(0);
+		combinedTableModel.setRowCount(0);
 	    for (Order order : orders) {
 	        System.out.println("Loading Order: " + order); // 디버깅 메시지 추가
-	        orderTableModel.addRow(new Object[] { 
+	        combinedTableModel.addRow(new Object[] { 
 	            order.getOrderID(),
 	            order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
 	            order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A", 
@@ -338,7 +338,9 @@ public class OrderPanel extends JFrame {
 	            order.getCustomerId(), 
 	            order.getCustomerName(), 
 	            order.getCustomerAddress(), 
-	            order.getProductId() 
+	            order.getProductId(),
+	            order.getProductName(),
+	            order.getProductPrice()
 	        });
 	    }
     }
@@ -352,63 +354,63 @@ public class OrderPanel extends JFrame {
 //		}
 //	}
 
-	private void loadProducts() {
-		Set<String> productIdsInOrders = new HashSet<>();
-	    for (int i = 0; i < orderTableModel.getRowCount(); i++) {
-	        String productId = (String) orderTableModel.getValueAt(i, 7); // 7 is the index for productId
-	        if (productId != null && !productId.isEmpty()) {
-	            productIdsInOrders.add(productId);
-	        }
-	    }
+//	private void loadProducts() {
+//		Set<String> productIdsInOrders = new HashSet<>();
+//	    for (int i = 0; i < orderTableModel.getRowCount(); i++) {
+//	        String productId = (String) orderTableModel.getValueAt(i, 7); // 7 is the index for productId
+//	        if (productId != null && !productId.isEmpty()) {
+//	            productIdsInOrders.add(productId);
+//	        }
+//	    }
+//
+//	    System.out.println("Product IDs in orders: " + productIdsInOrders);
+//
+//	    productTableModel.setRowCount(0);
+//	    for (String productId : productIdsInOrders) {
+//	        Product product = productDAO.getProductById(productId);
+//	        if (product != null) {
+//	            productTableModel.addRow(new Object[] { product.getProductId(), product.getName(), product.getPrice() });
+//	            System.out.println("Loaded product: " + product);
+//	        }
+//	    }
+//	}
 
-	    System.out.println("Product IDs in orders: " + productIdsInOrders);
-
-	    productTableModel.setRowCount(0);
-	    for (String productId : productIdsInOrders) {
-	        Product product = productDAO.getProductById(productId);
-	        if (product != null) {
-	            productTableModel.addRow(new Object[] { product.getProductId(), product.getName(), product.getPrice() });
-	            System.out.println("Loaded product: " + product);
-	        }
-	    }
-	}
-
-	private void loadCombinedData() {
+//	private void loadCombinedData() {
 //    	loadOrders();
 //        loadProducts();
 
-		combinedTableModel.setRowCount(0);
-		List<Order> orders = orderDAO.getAllOrders();
+//		combinedTableModel.setRowCount(0);
+//		List<Order> orders = orderDAO.getAllOrders();
 //        int orderRowCount = orderTableModel.getRowCount();
 //        int productRowCount = productTableModel.getRowCount();
-		for (Order order : orders) {
-			if (order.getProductId() != null && !order.getProductId().isEmpty()) {
-	            combinedTableModel.addRow(new Object[]{
-	                order.getOrderID(),
-	                order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
-	                order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A",
-	                order.getStatus(),
-	                order.getCustomerId(),
-	                order.getCustomerName(),
-	                order.getCustomerAddress(),
-	                order.getProductId(),
-	                order.getProductName(),
-	                order.getProductPrice()
-	            });
-	        } else {
-	            combinedTableModel.addRow(new Object[]{
-	                order.getOrderID(),
-	                order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
-	                order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A",
-	                order.getStatus(),
-	                order.getCustomerId(),
-	                order.getCustomerName(),
-	                order.getCustomerAddress(),
-	                "N/A",  // Product ID
-	                "N/A",  // Product Name
-	                0.0     // Product Price
-	            });
-	        }
+//		for (Order order : orders) {
+//			if (order.getProductId() != null && !order.getProductId().isEmpty()) {
+//	            combinedTableModel.addRow(new Object[]{
+//	                order.getOrderID(),
+//	                order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
+//	                order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A",
+//	                order.getStatus(),
+//	                order.getCustomerId(),
+//	                order.getCustomerName(),
+//	                order.getCustomerAddress(),
+//	                order.getProductId(),
+//	                order.getProductName(),
+//	                order.getProductPrice()
+//	            });
+//	        } else {
+//	            combinedTableModel.addRow(new Object[]{
+//	                order.getOrderID(),
+//	                order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
+//	                order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A",
+//	                order.getStatus(),
+//	                order.getCustomerId(),
+//	                order.getCustomerName(),
+//	                order.getCustomerAddress(),
+//	                "N/A",  // Product ID
+//	                "N/A",  // Product Name
+//	                0.0     // Product Price
+//	            });
+//	        }
 //			String productId = order.getProductId();
 //			Product product = productDAO.getProductById(order.getProductId());
 			
@@ -432,8 +434,8 @@ public class OrderPanel extends JFrame {
 //				});
 //			}
 
-		}
-	}
+//		}
+//	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

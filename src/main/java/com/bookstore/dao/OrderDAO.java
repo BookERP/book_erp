@@ -1,4 +1,4 @@
-package src.main.java.com.bookstore.dao;
+package main.java.com.bookstore.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.main.java.com.bookstore.model.Customer;
-import src.main.java.com.bookstore.model.Order;
-import src.main.java.com.bookstore.model.Product;
-import src.main.java.com.bookstore.util.ConnectionHelper;
-import src.main.java.com.bookstore.dao.CustomerDAO;
-import src.main.java.com.bookstore.dao.ProductDAO;
+import main.java.com.bookstore.model.Customer;
+import main.java.com.bookstore.model.Order;
+import main.java.com.bookstore.model.Product;
+import main.java.com.bookstore.util.ConnectionHelper;
+import main.java.com.bookstore.dao.CustomerDAO;
+import main.java.com.bookstore.dao.ProductDAO;
 
 public class OrderDAO {
 	private CustomerDAO customerDAO;
@@ -150,9 +150,11 @@ public class OrderDAO {
 	public List<Order> getAllOrders() {
 		List<Order> orders = new ArrayList<>();																									// 필터링
 		String orderQuery = "SELECT o.ORDERID, o.ORDERDATE, o.SHIPPINGDATE, o.STATUS, "
-				+ "c.CUSTOMERID, c.CNAME, c.CADDRESS " 
+				+ "c.CUSTOMERID, c.CNAME, c.CADDRESS, "
+				+ "p.PRODUCTID, p.PNAME, p.PRICE "
 				+ "FROM \"ORDER\" o "
-				+ "JOIN \"CUSTOMER\" c ON o.CID = c.CUSTOMERID";
+				+ "JOIN \"CUSTOMER\" c ON o.CID = c.CUSTOMERID "
+				+ "JOIN \"PRODUCT\" p ON o.PID = p.ProductID";
 		
 		try (Statement orderStmt = conn.createStatement();
 		     ResultSet orderRs = orderStmt.executeQuery(orderQuery)) {
@@ -165,6 +167,9 @@ public class OrderDAO {
 	            order.setCustomerId(orderRs.getString("CUSTOMERID"));
 	            order.setCustomerName(orderRs.getString("CNAME"));
 	            order.setCustomerAddress(orderRs.getString("CADDRESS"));
+	            order.setProductId(orderRs.getString("PRODUCTID"));
+	            order.setProductName(orderRs.getString("PNAME"));
+	            order.setProductPrice(orderRs.getDouble("PRICE"));
 	            
 //	            Product product = getProductForOrder(order.getOrderID());
 //	            if (product != null) {
