@@ -186,7 +186,7 @@ public class ProductManagementGUI extends JFrame {
         product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
-        product.setPrice(Double.parseDouble(price));
+        product.setPrice((int) Double.parseDouble(price));
         product.setStockQuantity(Integer.parseInt(stockQuantity));
         product.setCategory(txtCategory.getText());
         productDAO.addProduct(product);
@@ -243,7 +243,7 @@ public class ProductManagementGUI extends JFrame {
         product.setPname(txtName.getText());
         product.setAuthor(txtAuthor.getText());
         product.setPublisher(txtPublisher.getText());
-        product.setPrice(Double.parseDouble(txtPrice.getText()));
+        product.setPrice((int) Double.parseDouble(txtPrice.getText()));
         product.setStockQuantity(Integer.parseInt(txtStockQuantity.getText()));
         product.setCategory(txtCategory.getText());
         productDAO.updateProduct(product);

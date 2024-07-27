@@ -13,7 +13,6 @@ public class Order {
     private String productId;
     private String productName;
     private double productPrice;
-    private String paymentId;
 
     // Getters and setters for all fields
 
@@ -65,14 +64,6 @@ public class Order {
         this.productId = productId;
     }
 
-	public String getPaymentId() {
-		return paymentId;
-	}
-
-	public void setPaymentId(String paymentId) {
-		this.paymentId = paymentId;
-	}
-
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -110,6 +101,6 @@ public class Order {
 		return "Order [orderID=" + orderID + ", orderDate=" + orderDate + ", shippingDate=" + shippingDate + ", status="
 				+ status + ", customerId=" + customerId + ", customerName=" + customerName + ", customerAddress="
 				+ customerAddress + ", productId=" + productId + ", productName=" + productName + ", productPrice="
-				+ productPrice + ", paymentId=" + paymentId + "]";
+				+ productPrice + "]";
 	}
 }

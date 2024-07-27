@@ -27,7 +27,7 @@ public class ProductDAO {
                 product.setPname(rs.getString("PNAME"));
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
-                product.setPrice(rs.getDouble("PRICE"));
+                product.setPrice(rs.getInt("PRICE"));
                 product.setStockQuantity(rs.getInt("STOCKQ"));
                 product.setCategory(rs.getString("CATEGORY"));
                 products.add(product);
@@ -70,7 +70,7 @@ public class ProductDAO {
                 product.setPname(rs.getString("PNAME"));
                 product.setAuthor(rs.getString("AUTHOR"));
                 product.setPublisher(rs.getString("PUBLISHER"));
-                product.setPrice(rs.getDouble("PRICE"));
+                product.setPrice(rs.getInt("PRICE"));
                 product.setStockQuantity(rs.getInt("STOCKQ"));
                 product.setCategory(rs.getString("CATEGORY"));
             }

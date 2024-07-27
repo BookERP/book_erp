@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -28,14 +27,13 @@ import main.java.com.bookstore.dao.PaymentDAO;
 import main.java.com.bookstore.dao.ProductDAO;
 import main.java.com.bookstore.model.Customer;
 import main.java.com.bookstore.model.Order;
-import main.java.com.bookstore.model.Payment;
 import main.java.com.bookstore.model.Product;
 
 public class OrderPanel extends JFrame {
-	private JComboBox<String> comboStatus, comboCustomerId, comboBookId, comboPaymentMethod;
-	private JTextField txtCustomerName, txtAddress, txtBookName, txtPrice;
-	private JTable orderTable;
-	private DefaultTableModel tableModel;
+	private JComboBox<String> comboCustomerId, comboBookId;
+	private JTextField txtstatus, txtCustomerName, txtAddress, txtBookName, txtPrice;
+	private JTable orderTable, productTable, combinedTable;
+	private DefaultTableModel orderTableModel, productTableModel, combinedTableModel;
 	private CustomerDAO customerDAO;
 	private OrderDAO orderDAO;
 	private PaymentDAO paymentDAO;
@@ -44,7 +42,6 @@ public class OrderPanel extends JFrame {
 	public OrderPanel() {
 		customerDAO = new CustomerDAO();
 		orderDAO = new OrderDAO();
-		paymentDAO = new PaymentDAO();
 		productDAO = new ProductDAO();
 		setTitle("주문 관리");
 		setSize(800, 600);
@@ -52,16 +49,15 @@ public class OrderPanel extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 
-		JPanel inputPanel = new JPanel(new GridLayout(4, 2));
+		JPanel inputPanel = new JPanel(new GridLayout(7, 2));
 
-		inputPanel.add(new JLabel("상태"));
-		comboStatus = new JComboBox<>();
-		inputPanel.add(comboStatus);
-		loadStatus();
+		inputPanel.add(new JLabel("상태(결제중, 결제완료 둘 중 하나를 입력해주세요.)"));
+		txtstatus = new JTextField();
+		inputPanel.add(txtstatus);
 
 		inputPanel.add(new JLabel("고객 번호:"));
 		comboCustomerId = new JComboBox<>();
-		loadCustomers(); // 고객번호 선택하면 이름과 주소가 나오게 합시다.
+		loadCustomers();
 		comboCustomerId.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,52 +76,41 @@ public class OrderPanel extends JFrame {
 		txtAddress.setEditable(false);
 		inputPanel.add(txtAddress);
 
-//		inputPanel.add(new JLabel("제품 고유번호"));
-//		comboBookId = new JComboBox<>();
-//		loadBooks(); // 제품 고유번호를 선택하면 도서명과 가격이 나온다.
-//		comboBookId.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				loadBookDetails();
-//			}
-//		});
-//		inputPanel.add(comboBookId);
-//
-//		inputPanel.add(new JLabel("도서명"));
-//		txtBookName = new JTextField();
-//		txtBookName.setEditable(false);
-//		inputPanel.add(txtBookName);
-//
-//		inputPanel.add(new JLabel("가격"));
-//		txtPrice = new JTextField();
-//		txtPrice.setEditable(false);
-//		inputPanel.add(txtPrice);
-//
-//		inputPanel.add(new JLabel("결제수단:"));
-//		comboPaymentMethod = new JComboBox<>();
-//		inputPanel.add(comboPaymentMethod);
-//		loadPayments();
+		inputPanel.add(new JLabel("제품 고유번호"));
+		comboBookId = new JComboBox<>();
+		loadBooks();
+		comboBookId.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadBookDetails();
+			}
+		});
+		inputPanel.add(comboBookId);
+
+		inputPanel.add(new JLabel("도서명"));
+		txtBookName = new JTextField();
+		txtBookName.setEditable(false);
+		inputPanel.add(txtBookName);
+
+		inputPanel.add(new JLabel("가격"));
+		txtPrice = new JTextField();
+		txtPrice.setEditable(false);
+		inputPanel.add(txtPrice);
 
 		add(inputPanel, BorderLayout.NORTH);
 
-//		tableModel = new DefaultTableModel(new String[] { "주문번호", "고객이름", "주소", "주문일", "배송일", "상태", "가격" }, 0);
-//		tableModel = new DefaultTableModel(
-//				new String[] { "주문번호", "주문일", "배송일", "상태", "고객번호", "이름", "주소", "제품번호", "도서명", "가격", "결제수단" }, 0);
-		tableModel = new DefaultTableModel(new String[] {"주문번호","주문일","배송일","상태","고객번호","이름","주소"}, 0);
-		orderTable = new JTable(tableModel);
-		add(new JScrollPane(orderTable), BorderLayout.CENTER);
+		combinedTableModel = new DefaultTableModel(
+				new String[] { "주문번호", "주문일", "배송일", "상태", "고객번호", "이름", "주소", "제품번호", "도서명", "가격" }, 0);
+		combinedTable = new JTable(combinedTableModel);
+		add(new JScrollPane(combinedTable), BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel();
 		JButton btnAdd = new JButton("추가");
-//		JButton btnUpdate = new JButton("수정");
 		JButton btnDelete = new JButton("삭제");
-//		JButton btnSearch = new JButton("검색");
 		JButton btnSelectAll = new JButton("전체 목록 보기");
 
 		buttonPanel.add(btnAdd);
-//		buttonPanel.add(btnUpdate);
 		buttonPanel.add(btnDelete);
-//		buttonPanel.add(btnSearch);
 		buttonPanel.add(btnSelectAll);
 
 		add(buttonPanel, BorderLayout.SOUTH);
@@ -136,58 +121,37 @@ public class OrderPanel extends JFrame {
 				loadOrders();
 			}
 		});
-//
+
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addOrders();
 			}
 		});
-//
-//        btnUpdate.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                updateOrders();
-//            }
-//        });
-//
+
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				deleteOrders();
 			}
 		});
-//
-//        btnSearch.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                searchOrders();
-//            }
-//        });
-//        
+
 		loadOrders();
 	}
 
-	protected void deleteOrders() {
-		int selectedRow = orderTable.getSelectedRow();
+	private void deleteOrders() {
+		int selectedRow = combinedTable.getSelectedRow();
 		if (selectedRow == -1) {
 			JOptionPane.showMessageDialog(this, "삭제할 주문을 선택하세요.");
 			return;
 		}
 
-		String orderId = (String) tableModel.getValueAt(selectedRow, 0);
+		String orderId = (String) combinedTableModel.getValueAt(selectedRow, 0);
 		int confirm = JOptionPane.showConfirmDialog(this, "정말로 이 주문을 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 		if (confirm == JOptionPane.YES_OPTION) {
 			orderDAO.deleteOrder(orderId);
-			tableModel.removeRow(selectedRow);
+			combinedTableModel.removeRow(selectedRow);
 			JOptionPane.showMessageDialog(this, "주문이 성공적으로 삭제되었습니다.");
-		}
-	}
-
-	private void loadStatus() {
-		List<String> statuses = orderDAO.getAllStatuses();
-		for (String status : statuses) {
-			comboStatus.addItem(status);
 		}
 	}
 
@@ -227,67 +191,84 @@ public class OrderPanel extends JFrame {
 		}
 	}
 
-	private void loadOrders() {
-		List<Order> orders = orderDAO.getAllOrders();
-		tableModel.setRowCount(0); // 기존 행을 모두 삭제합니다.
-		for(Order order : orders) {
-			String orderDate = (order.getOrderDate() != null) ? order.getOrderDate().toString() : "N/A";
-            String shippingDate = (order.getShippingDate() != null) ? order.getShippingDate().toString() : "N/A";
-            
-			tableModel.addRow(new Object[] {
-				order.getOrderID(),
-				orderDate,
-                shippingDate,
-				order.getStatus(),
-				order.getCustomerId(),
-	            order.getCustomerName(),
-	            order.getCustomerAddress()
-			});
-		}
-	}
-
 	private void addOrders() {
 		LocalDateTime now = LocalDateTime.now();
-	    Date orderDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-	    Date shippingDate = Date.from(now.plusDays(3).atZone(ZoneId.systemDefault()).toInstant());
+		Date orderDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+		Date shippingDate = Date.from(now.plusDays(3).atZone(ZoneId.systemDefault()).toInstant());
 
-	    String status = (String) comboStatus.getSelectedItem();
-	    if (status == null || status.isEmpty()) {
-	        JOptionPane.showMessageDialog(this, "상태를 선택하세요.");
-	        return;
-	    }
+		String status = txtstatus.getText();
+		if (status == null || status.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "상태를 입력하세요.");
+			return;
+		}
+		if (!status.equals("결제중") && !status.equals("결제완료")) {
+			JOptionPane.showMessageDialog(this, "상태는 '결제중' 또는 '결제완료'만 가능합니다.");
+			return;
+		}
 
-	    // Get selected customer ID
-	    String customerId = (String) comboCustomerId.getSelectedItem();
-	    if (customerId == null || customerId.isEmpty()) {
-	        JOptionPane.showMessageDialog(this, "고객 번호를 선택하세요.");
-	        return;
-	    }
-	    Customer customer = customerDAO.getCustomerByID(customerId);
-	    if (customer == null) {
-	        JOptionPane.showMessageDialog(this, "고객 정보를 찾을 수 없습니다.");
-	        return;
-	    }
-	    String customerName = customer.getCName();
-	    String customerAddress = customer.getCAddress();
+		String customerId = (String) comboCustomerId.getSelectedItem();
+		if (customerId == null || customerId.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "고객 번호를 선택하세요.");
+			return;
+		}
+		Customer customer = customerDAO.getCustomerByID(customerId);
+		if (customer == null) {
+			JOptionPane.showMessageDialog(this, "고객 정보를 찾을 수 없습니다.");
+			return;
+		}
+		String customerName = customer.getCName();
+		String customerAddress = customer.getCAddress();
 
-	    Order newOrder = new Order();
-	    newOrder.setOrderID(orderDAO.getNextOrderId()); // 자동으로 Order ID 생성
-	    newOrder.setOrderDate(orderDate);
-	    newOrder.setShippingDate(shippingDate);
-	    newOrder.setStatus(status);
-	    newOrder.setCustomerId(customerId);
-	    newOrder.setCustomerName(customerName);
-	    newOrder.setCustomerAddress(customerAddress);
+		String productId = (String) comboBookId.getSelectedItem();
+		if (productId == null || productId.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "제품 고유번호를 선택하세요.");
+			return;
+		}
+		Product product = productDAO.getProductById(productId);
+		if (product == null) {
+			JOptionPane.showMessageDialog(this, "제품 정보를 찾을 수 없습니다.");
+			return;
+		}
+		String productName = product.getPname();
+		double price = product.getPrice();
 
-	    orderDAO.addOrder(newOrder);
-	    loadOrders();
+		Order newOrder = new Order();
+		newOrder.setOrderID(orderDAO.getNextOrderId());
+		newOrder.setOrderDate(orderDate);
+		newOrder.setShippingDate(shippingDate);
+		newOrder.setStatus(status);
+		newOrder.setCustomerId(customerId);
+		newOrder.setCustomerName(customerName);
+		newOrder.setCustomerAddress(customerAddress);
+		newOrder.setProductId(productId);
+		newOrder.setProductName(productName);
+		newOrder.setProductPrice(price);
+
+//		System.out.println("New Order Added: " + newOrder); // 디버깅 메시지 추가
+
+		orderDAO.addOrder(newOrder);
+		loadOrders();
+
+		JOptionPane.showMessageDialog(this, "주문이 성공적으로 추가되었습니다.");
 	}
 
-	private void loadPayments() {
-		List<Payment> payments = paymentDAO.getAllPayments();
-		for (Payment payment : payments) {
-			comboPaymentMethod.addItem(payment.getMethod());
+	private void loadOrders() {
+		List<Order> orders = orderDAO.getAllOrders();
+		combinedTableModel.setRowCount(0);
+		for (Order order : orders) {
+			//System.out.println("Loading Order: " + order); // 디버깅 메시지 추가
+			combinedTableModel.addRow(new Object[] {
+					order.getOrderID(),
+					order.getOrderDate() != null ? order.getOrderDate().toString() : "N/A",
+					order.getShippingDate() != null ? order.getShippingDate().toString() : "N/A",
+					order.getStatus(),
+					order.getCustomerId(),
+					order.getCustomerName(),
+					order.getCustomerAddress(),
+					order.getProductId(),
+					order.getProductName(),
+					order.getProductPrice()
+			});
 		}
 	}
 

@@ -6,7 +6,7 @@ public class Product {
     private String Pname;
     private String author;
     private String publisher;
-    private double price;
+    private int price;
     private int stockQuantity;
     private String category;
 
@@ -51,11 +51,11 @@ public class Product {
         this.publisher = publisher;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
